@@ -1,64 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historical Floods Map</title>
+    <title>GBV Mapping - Grand Cape Mount County, Liberia</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
+        /* Make the map fill the entire screen */
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         #map { height: 100vh; width: 100%; }
-        body { margin: 0; padding: 0; }
-        .info {
-            padding: 6px 8px;
-            font: 14px/16px Arial, Helvetica, sans-serif;
+
+        /* Style for the information panel */
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 280px;
             background: white;
-            background: rgba(255,255,255,0.8);
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .info-panel h2 { margin: 0 0 10px; color: #b91c1c; font-size: 1.2rem; }
+        .stat { margin-bottom: 8px; font-size: 0.95rem; }
+        .label { font-weight: bold; color: #555; }
+        
+        /* Legend style */
+        .legend {
+            background: white;
+            padding: 10px;
+            line-height: 1.5;
             border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        .legend i {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Initialize the map and set its view to a global zoom level
-        var map = L.map('map').setView([20, 0], 2);
 
-        // Add an OpenStreetMap tile layer (the background map)
+    <!-- Info Panel on the Top Right -->
+    <div class="info-panel">
+        <h2>Grand Cape Mount</h2>
+        <p>GBV Indicators & Services</p>
+        <div class="stat"><span class="label">FGM Prevalence:</span> 71%</div>
+        <div class="stat"><span class="label">Spotlight County:</span> Yes</div>
+        <div class="stat"><span class="label">Target Communities:</span> 114</div>
+        <div class="stat"><span class="label">Women in Legislature:</span> 3 of 4</div>
+        <hr>
+        <p style="font-size: 0.8rem; color: #777;">Sources: LDHS 2019-20, MGCSP 2024 Report, Spotlight Initiative.</p>
+    </div>
+
+    <!-- The Map Container -->
+    <div id="map"></div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // 1. Initialize the map
+        // Coordinates [6.8, -11.0] center it on Grand Cape Mount County
+        var map = L.map('map').setView([6.8, -11.0], 9);
+
+        // 2. Add a background map (Basemap)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Load the GeoJSON data
-        fetch('floods.geojson')
+        // 3. Load the County Boundary from the file we created
+        fetch('gbv_grand_cape_mount.geojson')
             .then(response => response.json())
             .then(data => {
-                // Add the GeoJSON layer to the map
                 L.geoJSON(data, {
-                    onEachFeature: function (feature, layer) {
-                        // Add a popup for each flood event
-                        var popupContent = "<b>Country:</b> " + feature.properties.country + "<br>" +
-                                         "<b>Date:</b> " + feature.properties.began + "<br>" +
-                                         "<b>Cause:</b> " + feature.properties.cause + "<br>" +
-                                         "<b>Deaths:</b> " + (feature.properties.dead || "Unknown");
-                        layer.bindPopup(popupContent);
-                    },
-                    pointToLayer: function (feature, latlng) {
-                        // Change markers into circles for better performance
-                        return L.circleMarker(latlng, {
-                            radius: 5,
-                            fillColor: "#0078ff",
-                            color: "#000",
-                            weight: 1,
-                            opacity: 1,
-                            fillOpacity: 0.8
-                        });
+                    style: {
+                        color: "#b91c1c", // Dark red border
+                        weight: 3,
+                        fillColor: "#fee2e2", // Light red fill
+                        fillOpacity: 0.4
                     }
                 }).addTo(map);
-            })
-            .catch(error => console.error('Error loading the GeoJSON file:', error));
+            });
+
+        // 4. Add a marker for the "One-Stop Center" in Robertsport
+        // These centers provide medical and legal help to survivors
+        var oneStop = L.marker([6.7533, -11.3686]).addTo(map);
+        oneStop.bindPopup("<b>One-Stop Center (St. Timothy Hospital)</b><br>Robertsport. Provides medical, legal, and psychosocial support for GBV survivors.");
+
+        // 5. Add a simple legend
+        var legend = L.control({position: 'bottomleft'});
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend');
+            div.innerHTML += '<i style="background: #b91c1c; border: 1px solid #000;"></i> Grand Cape Mount Boundary<br>';
+            div.innerHTML += '<img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png" height="15px"> One-Stop Center';
+            return div;
+        };
+        legend.addTo(map);
+
     </script>
 </body>
 </html>
