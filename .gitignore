@@ -1,0 +1,5 @@
+# Raw data files
+*.csv
+*.xlsx
+# Python scripts
+*.py
