@@ -1,87 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historical Floods in Liberia - Severity Map</title>
+    <title>Liberia: Health Infrastructure & Flood Risk</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Leaflet & Clustering CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
     <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f9; }
         #map { height: 100vh; width: 100%; }
-        body { margin: 0; padding: 0; font-family: sans-serif; }
+        
         .map-title {
-            position: absolute; top: 10px; left: 50px; z-index: 1000;
-            background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: absolute; top: 15px; left: 60px; z-index: 1000;
+            background: white; padding: 12px 20px; border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); border-left: 5px solid #2c3e50;
         }
+        .map-title h2 { margin: 0; font-size: 18px; color: #2c3e50; }
+        
         .legend {
-            padding: 10px; font: 14px Arial, Helvetica, sans-serif;
-            background: white; background: rgba(255,255,255,0.9);
-            box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; line-height: 24px;
+            padding: 12px; background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-radius: 8px;
+            line-height: 1.6; color: #333; min-width: 180px;
         }
-        .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.8; border-radius: 50%; }
+        .legend h4 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .legend i { width: 14px; height: 14px; float: left; margin-right: 10px; margin-top: 4px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2); }
+        
+        .at-risk-popup b { color: #e74c3c; font-size: 14px; }
     </style>
 </head>
 <body>
-    <div class="map-title"><b>Liberia Flood Severity (1985-Present)</b></div>
+    <div class="map-title"><h2>Liberia Health Risk Assessment</h2></div>
     <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([6.4281, -9.4295], 7);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap'
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    
+    <script>
+        var map = L.map('map').setView([6.489, -9.4295], 7);
+        
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 20
         }).addTo(map);
 
-        function getColor(s) {
-            return s == '2'   ? '#7b241c' : // Deep Maroon
-                   s == '1.5' ? '#d35400' : // Burnt Orange
-                                '#f1c40f';   // Vibrant Yellow
-        }
+        var colors = {
+            atRisk: '#e74c3c',
+            healthSite: '#5d6d7e',
+            floodHigh: '#7b241c',
+            floodMed: '#d35400',
+            floodLow: '#f1c40f'
+        };
 
-        function getRadius(s) {
-            return s == '2'   ? 18 : // Largest
-                   s == '1.5' ? 12 : 
-                                8;   // Smallest
-        }
-
-        fetch('liberia_floods.geojson')
-            .then(response => response.json())
+        // 1. AT-RISK Health Facilities
+        var atRiskLayer = L.layerGroup().addTo(map);
+        fetch('at_risk_health_facilities.geojson')
+            .then(res => res.json())
             .then(data => {
                 L.geoJSON(data, {
                     onEachFeature: function (feature, layer) {
-                        var props = feature.properties;
-                        var popupContent = "<b>Liberia Flood Event</b><br>" +
-                                         "⚠️ <b>Severity:</b> " + (props.Severity || "1") + "<br>" +
-                                         "📅 <b>Began:</b> " + props.Began + "<br>" +
-                                         "🌊 <b>Cause:</b> " + props.MainCause;
-                        layer.bindPopup(popupContent);
+                        layer.bindPopup("<b>⚠️ AT RISK: " + (feature.properties.name || "Unnamed") + "</b><br>" +
+                                         "Type: " + feature.properties.amenity);
+                    },
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 10, fillColor: colors.atRisk, color: "#fff", weight: 2, fillOpacity: 0.9
+                        });
+                    }
+                }).addTo(atRiskLayer);
+            });
+
+        // 2. All Health Facilities (Clustered)
+        var healthCluster = L.markerClusterGroup({ maxClusterRadius: 50 });
+        fetch('liberia_health_facilities.geojson')
+            .then(res => res.json())
+            .then(data => {
+                var geoJsonLayer = L.geoJSON(data, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 4, fillColor: colors.healthSite, color: "#2c3e50", weight: 1, fillOpacity: 0.6
+                        });
+                    }
+                });
+                healthCluster.addLayer(geoJsonLayer);
+                map.addLayer(healthCluster);
+            });
+
+        // 3. Liberia Floods
+        function getFloodColor(s) {
+            return s == '2' ? colors.floodHigh : s == '1.5' ? colors.floodMed : colors.floodLow;
+        }
+
+        var floodLayer = L.layerGroup().addTo(map);
+        fetch('liberia_floods.geojson')
+            .then(res => res.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup("<b>Liberia Flood Event</b><br>Severity: " + (feature.properties.Severity || "1"));
                     },
                     pointToLayer: function (feature, latlng) {
                         var s = feature.properties.Severity;
                         return L.circleMarker(latlng, {
-                            radius: getRadius(s),
-                            fillColor: getColor(s),
-                            color: "#000",
-                            weight: 2, // Thicker border
-                            opacity: 1,
-                            fillOpacity: 1 // Solid colors for maximum visibility
+                            radius: s == '2' ? 15 : s == '1.5' ? 10 : 7,
+                            fillColor: getFloodColor(s), color: "#000", weight: 1, fillOpacity: 0.8
                         });
                     }
-                }).addTo(map);
+                }).addTo(floodLayer);
             });
+
+        L.control.layers(null, {
+            "<span style='color: #e74c3c; font-weight: bold;'>⚠️ At-Risk Sites</span>": atRiskLayer,
+            "All Health Sites": healthCluster,
+            "Flood Events": floodLayer
+        }, {collapsed: false}).addTo(map);
 
         var legend = L.control({position: 'bottomright'});
         legend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend'),
-                grades = ["1", "1.5", "2"],
-                labels = ["Low Risk", "Medium Risk", "High Risk"];
-
-            div.innerHTML += "<b>Liberia Risk Levels</b><br>";
-            for (var i = 0; i < grades.length; i++) {
-                div.innerHTML +=
-                    '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-                    labels[i] + '<br>';
-            }
+            var div = L.DomUtil.create('div', 'legend');
+            div.innerHTML += '<h4>Map Key</h4>';
+            div.innerHTML += '<i style="background:' + colors.atRisk + '; border: 2px solid #fff;"></i> <b>At-Risk Site</b><br>';
+            div.innerHTML += '<i style="background:' + colors.healthSite + '"></i> Health Facility<br>';
+            div.innerHTML += '<br><h4>Flood Severity</h4>';
+            div.innerHTML += '<i style="background:' + colors.floodHigh + '"></i> High Risk<br>';
+            div.innerHTML += '<i style="background:' + colors.floodMed + '"></i> Medium Risk<br>';
+            div.innerHTML += '<i style="background:' + colors.floodLow + '"></i> Low Risk<br>';
             return div;
         };
         legend.addTo(map);
