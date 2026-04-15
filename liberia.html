@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historical Floods in Liberia</title>
+    <title>Historical Floods in Liberia - Severity Map</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -12,23 +12,38 @@
             position: absolute; top: 10px; left: 50px; z-index: 1000;
             background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+        .legend {
+            padding: 10px; font: 14px Arial, Helvetica, sans-serif;
+            background: white; background: rgba(255,255,255,0.9);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; line-height: 24px;
+        }
+        .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.8; border-radius: 50%; }
     </style>
 </head>
 <body>
-    <div class="map-title"><b>Historical Floods in Liberia (1985-Present)</b></div>
+    <div class="map-title"><b>Liberia Flood Severity (1985-Present)</b></div>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // 1. Center the map exactly on Liberia
         var map = L.map('map').setView([6.4281, -9.4295], 7);
 
-        // 2. Add an OpenStreetMap tile layer (the background map)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; OpenStreetMap'
         }).addTo(map);
 
-        // 3. Load the Liberia-specific GeoJSON data
+        function getColor(s) {
+            return s == '2'   ? '#c0392b' : // High
+                   s == '1.5' ? '#e67e22' : // Medium
+                                '#f1c40f';   // Low
+        }
+
+        function getRadius(s) {
+            return s == '2'   ? 15 : // High
+                   s == '1.5' ? 10 : // Medium
+                                7;   // Low
+        }
+
         fetch('liberia_floods.geojson')
             .then(response => response.json())
             .then(data => {
@@ -36,25 +51,40 @@
                     onEachFeature: function (feature, layer) {
                         var props = feature.properties;
                         var popupContent = "<b>Liberia Flood Event</b><br>" +
-                                         "📅 <b>From:</b> " + props.Began + "<br>" +
-                                         "📅 <b>To:</b> " + props.Ended + "<br>" +
-                                         "⚠️ <b>Cause:</b> " + props.MainCause + "<br>" +
-                                         "💀 <b>Deaths:</b> " + (props.Dead || "None reported");
+                                         "⚠️ <b>Severity:</b> " + (props.Severity || "1") + "<br>" +
+                                         "📅 <b>Began:</b> " + props.Began + "<br>" +
+                                         "🌊 <b>Cause:</b> " + props.MainCause;
                         layer.bindPopup(popupContent);
                     },
                     pointToLayer: function (feature, latlng) {
-                        // 4. Visual choice: Red Circle Markers
+                        var s = feature.properties.Severity;
                         return L.circleMarker(latlng, {
-                            radius: 10,
-                            fillColor: "#e74c3c", // Vibrant Red
-                            color: "#c0392b",     // Dark Red Border
-                            weight: 2,
+                            radius: getRadius(s),
+                            fillColor: getColor(s),
+                            color: "#000",
+                            weight: 1,
                             opacity: 1,
                             fillOpacity: 0.8
                         });
                     }
                 }).addTo(map);
             });
+
+        var legend = L.control({position: 'bottomright'});
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = ["1", "1.5", "2"],
+                labels = ["Low Risk", "Medium Risk", "High Risk"];
+
+            div.innerHTML += "<b>Liberia Risk Levels</b><br>";
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+                    labels[i] + '<br>';
+            }
+            return div;
+        };
+        legend.addTo(map);
     </script>
 </body>
 </html>
