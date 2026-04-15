@@ -33,15 +33,15 @@
         }).addTo(map);
 
         function getColor(s) {
-            return s == '2'   ? '#c0392b' : // High
-                   s == '1.5' ? '#e67e22' : // Medium
-                                '#f1c40f';   // Low
+            return s == '2'   ? '#7b241c' : // Deep Maroon
+                   s == '1.5' ? '#d35400' : // Burnt Orange
+                                '#f1c40f';   // Vibrant Yellow
         }
 
         function getRadius(s) {
-            return s == '2'   ? 15 : // High
-                   s == '1.5' ? 10 : // Medium
-                                7;   // Low
+            return s == '2'   ? 18 : // Largest
+                   s == '1.5' ? 12 : 
+                                8;   // Smallest
         }
 
         fetch('liberia_floods.geojson')
@@ -62,9 +62,9 @@
                             radius: getRadius(s),
                             fillColor: getColor(s),
                             color: "#000",
-                            weight: 1,
+                            weight: 2, // Thicker border
                             opacity: 1,
-                            fillOpacity: 0.8
+                            fillOpacity: 1 // Solid colors for maximum visibility
                         });
                     }
                 }).addTo(map);

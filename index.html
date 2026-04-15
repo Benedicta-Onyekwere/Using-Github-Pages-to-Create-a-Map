@@ -29,16 +29,16 @@
 
         // Function to choose color based on severity
         function getColor(s) {
-            return s == '2'   ? '#c0392b' :
-                   s == '1.5' ? '#e67e22' :
-                                '#f1c40f';
+            return s == '2'   ? '#7b241c' : // Deep Maroon
+                   s == '1.5' ? '#d35400' : // Burnt Orange
+                                '#f1c40f';   // Vibrant Yellow
         }
 
         // Function to choose size based on severity
         function getRadius(s) {
-            return s == '2'   ? 8 :
-                   s == '1.5' ? 5 :
-                                3;
+            return s == '2'   ? 10 : // Larger
+                   s == '1.5' ? 6 :
+                                4;
         }
 
         fetch('floods.geojson')
@@ -56,10 +56,10 @@
                         return L.circleMarker(latlng, {
                             radius: getRadius(s),
                             fillColor: getColor(s),
-                            color: "#000",
-                            weight: 0.5,
+                            color: "#000", // Black border
+                            weight: 1.5,   // Thicker border
                             opacity: 1,
-                            fillOpacity: 0.8
+                            fillOpacity: 0.9 // More solid
                         });
                     }
                 }).addTo(map);
