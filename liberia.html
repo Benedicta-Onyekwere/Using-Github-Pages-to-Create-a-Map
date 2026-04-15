@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historical Floods in Liberia</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { height: 100vh; width: 100%; }
+        body { margin: 0; padding: 0; font-family: sans-serif; }
+        .map-title {
+            position: absolute; top: 10px; left: 50px; z-index: 1000;
+            background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="map-title"><b>Historical Floods in Liberia (1985-Present)</b></div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 1. Center the map exactly on Liberia
+        var map = L.map('map').setView([6.4281, -9.4295], 7);
+
+        // 2. Add an OpenStreetMap tile layer (the background map)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        // 3. Load the Liberia-specific GeoJSON data
+        fetch('liberia_floods.geojson')
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    onEachFeature: function (feature, layer) {
+                        var props = feature.properties;
+                        var popupContent = "<b>Liberia Flood Event</b><br>" +
+                                         "📅 <b>From:</b> " + props.Began + "<br>" +
+                                         "📅 <b>To:</b> " + props.Ended + "<br>" +
+                                         "⚠️ <b>Cause:</b> " + props.MainCause + "<br>" +
+                                         "💀 <b>Deaths:</b> " + (props.Dead || "None reported");
+                        layer.bindPopup(popupContent);
+                    },
+                    pointToLayer: function (feature, latlng) {
+                        // 4. Visual choice: Red Circle Markers
+                        return L.circleMarker(latlng, {
+                            radius: 10,
+                            fillColor: "#e74c3c", // Vibrant Red
+                            color: "#c0392b",     // Dark Red Border
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        });
+                    }
+                }).addTo(map);
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+ID,GlideNumber,Country,OtherCountry,long,lat,Area,Began,Ended,Validation,Dead,Displaced,MainCause,Severity,category
+1089,0,Liberia,0,-10.3271,6.61336,18255.11,7/15/96,7/18/96,News,0,0,Brief torrential rain,1,
+1449,0,Liberia,0,-10.9621,7.05753,5936.01,9/17/98,10/2/98,News,8,5000,Heavy rain,1,
+3177,FL-2007-000144-LBR,Liberia,0,-10.5823,6.50598,2336.59,8/26/07,8/30/07,News,0,17000,Heavy rain,1.5,
+3334,,Liberia,0,-10.2126,6.2298,33620.26,7/11/08,7/20/08,News,0,0,Heavy Rain,1.5,
+3669,"FL-2010-000118-CIV,",Liberia,,-7.15018,6.01301,183842.33,6/25/10,6/27/10,0,12,0,Torrential Rain,1,
+4648,,Liberia,,-10.0479,6.24439,16572.31,7/18/18,7/23/18,FloodList,0,0,Monsoonal Rain,1,
