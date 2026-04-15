@@ -27,6 +27,48 @@
             attribution: '&copy; OpenStreetMap'
         }).addTo(map);
 
+        // Zoom to Liberia initially
+        map.setView([6.489, -10.797], 7);
+
+        // Load General Health Facilities (Small Grey Dots)
+        fetch('liberia_health_facilities.geojson')
+            .then(res => res.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 3,
+                            fillColor: "#95a5a6",
+                            color: "#000",
+                            weight: 0.5,
+                            fillOpacity: 0.5
+                        });
+                    }
+                }).addTo(map);
+            });
+
+        // Load AT-RISK Health Facilities (Bright Red Icons)
+        fetch('at_risk_health_facilities.geojson')
+            .then(res => res.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup("<b>AT RISK: " + (feature.properties.name || "Unknown") + "</b><br>" +
+                                         "Type: " + feature.properties.amenity);
+                    },
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 8,
+                            fillColor: "#e74c3c",
+                            color: "#fff",
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 1
+                        });
+                    }
+                }).addTo(map);
+            });
+
         // Function to choose color based on severity
         function getColor(s) {
             return s == '2'   ? '#7b241c' : // Deep Maroon
@@ -72,7 +114,10 @@
                 grades = ["1", "1.5", "2"],
                 labels = ["Low Severity", "Medium Severity", "High Severity"];
 
-            div.innerHTML += "<b>Flood Severity</b><br>";
+            div.innerHTML += "<b>Map Features</b><br>";
+            div.innerHTML += '<i style="background:#e74c3c; border: 1px solid white"></i> At-Risk Facility<br>';
+            div.innerHTML += '<i style="background:#95a5a6; border: 1px solid black"></i> Other Health Site<br>';
+            div.innerHTML += "<br><b>Flood Severity</b><br>";
             for (var i = 0; i < grades.length; i++) {
                 div.innerHTML +=
                     '<i style="background:' + getColor(grades[i]) + '"></i> ' +

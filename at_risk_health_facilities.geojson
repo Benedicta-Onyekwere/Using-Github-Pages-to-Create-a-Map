@@ -1,0 +1,95 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -10.270590080934085,
+          6.212029985256152
+        ]
+      },
+      "properties": {
+        "osm_id": 7703806420,
+        "osm_type": "node",
+        "completeness": 18.75,
+        "amenity": "clinic",
+        "healthcare": "clinic",
+        "name": "Bokay Town Clinic",
+        "operator": "",
+        "source": "MOH & NPHIL",
+        "speciality": "",
+        "operator_type": "",
+        "operational_status": "functional",
+        "opening_hours": "",
+        "beds": "",
+        "staff_doctors": "",
+        "staff_nurses": "",
+        "health_amenity_type": "",
+        "dispensing": "",
+        "wheelchair": "",
+        "emergency": "",
+        "insurance": "",
+        "water_source": "",
+        "electricity": "",
+        "is_in_health_area": "",
+        "is_in_health_zone": "",
+        "url": "",
+        "addr_housenumber": "",
+        "addr_street": "",
+        "addr_postcode": "",
+        "addr_city": "",
+        "changeset_id": 131784810.0,
+        "changeset_version": 2.0,
+        "changeset_timestamp": "2023-01-27T18:51:42Z",
+        "uuid": "1a2b184cb88f407e8e21f9aa61652d41"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -10.614306449094244,
+          6.447226691219157
+        ]
+      },
+      "properties": {
+        "osm_id": 8999084917,
+        "osm_type": "node",
+        "completeness": 9.375,
+        "amenity": "clinic",
+        "healthcare": "",
+        "name": "BENSONVILLE HOSPITAL",
+        "operator": "",
+        "source": "",
+        "speciality": "",
+        "operator_type": "",
+        "operational_status": "",
+        "opening_hours": "",
+        "beds": "",
+        "staff_doctors": "",
+        "staff_nurses": "",
+        "health_amenity_type": "",
+        "dispensing": "",
+        "wheelchair": "",
+        "emergency": "",
+        "insurance": "",
+        "water_source": "",
+        "electricity": "",
+        "is_in_health_area": "",
+        "is_in_health_zone": "",
+        "url": "",
+        "addr_housenumber": "",
+        "addr_street": "",
+        "addr_postcode": "",
+        "addr_city": "",
+        "changeset_id": 109525320.0,
+        "changeset_version": 1.0,
+        "changeset_timestamp": "2021-08-11T15:51:53Z",
+        "uuid": "d45184632465419383a668841097317b"
+      }
+    }
+  ]
+}
