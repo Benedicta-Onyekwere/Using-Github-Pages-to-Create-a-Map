@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Data Dashboard</title>
+    <!-- We use Chart.js for the graphs and PapaParse to read the CSV file -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        /* This creates the 2x2 grid layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        /* This makes each chart look like a "Card" */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Global Flood Archive Dashboard</h1>
+        <p>Analyzing historical flood data from 1985 onwards</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Card 1 -->
+        <div class="card">
+            <h3>Top 20 Countries by Flood Events</h3>
+            <canvas id="countryChart"></canvas>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <h3>Flood Events per Year</h3>
+            <canvas id="yearChart"></canvas>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <h3>Events by Category</h3>
+            <canvas id="categoryChart"></canvas>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <h3>Total Displaced by Severity</h3>
+            <canvas id="severityChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // STEP 1: Load the CSV file
+        Papa.parse('floodarchive_cleaned.csv', {
+            download: true,
+            header: true,
+            complete: function(results) {
+                processData(results.data);
+            }
+        });
+
+        function processData(data) {
+            // Filter out any empty rows
+            const cleanData = data.filter(row => row.Country && row.Year);
+
+            // --- 1. Top 20 Countries ---
+            const countryCounts = {};
+            cleanData.forEach(row => {
+                countryCounts[row.Country] = (countryCounts[row.Country] || 0) + 1;
+            });
+            const topCountries = Object.entries(countryCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 20);
+
+            createBarChart('countryChart', 'Flood Events', 
+                topCountries.map(x => x[0]), 
+                topCountries.map(x => x[1]), '#3498db');
+
+            // --- 2. Events per Year ---
+            const yearCounts = {};
+            cleanData.forEach(row => {
+                yearCounts[row.Year] = (yearCounts[row.Year] || 0) + 1;
+            });
+            const sortedYears = Object.keys(yearCounts).sort();
+            
+            new Chart(document.getElementById('yearChart'), {
+                type: 'line',
+                data: {
+                    labels: sortedYears,
+                    datasets: [{
+                        label: 'Events per Year',
+                        data: sortedYears.map(y => yearCounts[y]),
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // --- 3. Events by Category ---
+            const catCounts = {};
+            cleanData.forEach(row => {
+                const cat = row.categorised_reason || 'Other';
+                catCounts[cat] = (catCounts[cat] || 0) + 1;
+            });
+            const sortedCats = Object.entries(catCounts).sort((a,b) => b[1] - a[1]);
+
+            createBarChart('categoryChart', 'Events by Category', 
+                sortedCats.map(x => x[0]), 
+                sortedCats.map(x => x[1]), '#2ecc71');
+
+            // --- 4. Total Displaced by Severity ---
+            const sevDisplaced = {};
+            cleanData.forEach(row => {
+                const sev = row.Severity || 'Unknown';
+                const disp = parseInt(row.Displaced) || 0;
+                sevDisplaced[sev] = (sevDisplaced[sev] || 0) + disp;
+            });
+            const sortedSevs = Object.keys(sevDisplaced).sort();
+
+            createBarChart('severityChart', 'Total Displaced', 
+                sortedSevs, 
+                sortedSevs.map(s => sevDisplaced[s]), '#9b59b6');
+        }
+
+        // Helper function to create a bar chart
+        function createBarChart(id, label, labels, data, color) {
+            new Chart(document.getElementById(id), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        backgroundColor: color
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
