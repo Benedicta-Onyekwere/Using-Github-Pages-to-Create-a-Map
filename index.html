@@ -62,6 +62,7 @@
 
         footer { padding: 8rem 2rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; background: #020617; border-top: 1px solid var(--border); }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
@@ -150,7 +151,7 @@
                         <tr><td>1449</td><td>Liberia</td><td>-10.9621</td><td>7.05753</td><td>9/17/98</td><td>8</td><td>5000</td><td>Heavy rain</td></tr>
                         <tr><td>3177</td><td>Liberia</td><td>-10.5823</td><td>6.50598</td><td>8/26/07</td><td>0</td><td>17000</td><td>Heavy rain</td></tr>
                         <tr><td>3334</td><td>Liberia</td><td>-10.2126</td><td>6.2298</td><td>7/11/08</td><td>0</td><td>0</td><td>Heavy Rain</td></tr>
-                        <tr><td>3669</td><td>Liberia</td><td>-10.7421</td><td>6.3211</td><td>8/15/10</td><td>12</td><td>0</td><td>Heavy Rain</td></tr>
+                        <tr><td>3669</td><td>Liberia</td><td>-7.15018</td><td>6.01301</td><td>6/25/10</td><td>12</td><td>0</td><td>Torrential Rain</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -167,22 +168,68 @@
             <div class="preview-title">DATA PREVIEW (JSON SNIPPET)</div>
             <pre>
 {
-  "type": "Feature",
-  "geometry": { "type": "Point", "coordinates": [-9.538, 7.652] },
-  "properties": {
-    "name": "Zolowo Clinic",
-    "healthcare": "clinic",
-    "amenity": "clinic",
-    "operator": "Government"
-  }
-}, ...</pre>
+  "type": "FeatureCollection",
+  "features": [
+    {"type":"Feature","geometry":{"type":"Point","coordinates":[-9.538518932529968,7.652748131636656]},"properties":{"name":"Zolowo Clinic","healthcare":"clinic","amenity":"clinic","operator":"Government"}},
+    {"type":"Feature","geometry":{"type":"Point","coordinates":[-10.706339913577494,6.393092672487199]},"properties":{"name":"International Poly Clinic","healthcare":"clinic","amenity":"clinic","addr_city":"Monrovia"}},
+    {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-9.117495433210138,6.647045227905465],[-9.116408216549502,6.647176572328192],[-9.116335880725131,6.646653960665304]]]},"properties":{"name":"Zekepa Clinic","healthcare":"clinic","amenity":"hospital"}},
+    {"type":"Feature","geometry":{"type":"Point","coordinates":[-10.066546478315104,8.389644657878733]},"properties":{"name":"Fassavolu Clinic","healthcare":"clinic","amenity":"clinic"}},
+    {"type":"Feature","geometry":{"type":"Point","coordinates":[-10.018575840624692,6.597045582913836]},"properties":{"name":"Worhn Clinic","healthcare":"clinic","amenity":"clinic"}}
+  ]
+}
+... </pre>
         </div>
     </div>
+
+        <div id="preview-map" style="height:420px; border-radius:12px; border:1px solid var(--border); margin-top:2rem;"></div>
 
     <footer>
         &copy; 2026 Global Flood Archive & Liberia Risk Registry.<br>
         Developed for professional humanitarian analysis and socio-environmental research.
     </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    // Initialize preview map and markers
+    try {
+      var map = L.map('preview-map').setView([6.5,-10],6);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom: 19, attribution: '© OpenStreetMap contributors'}).addTo(map);
+
+      // Global sample markers
+      var global = [
+        {name:'Algeria Flood', lat:35.8142, lon:5.23026},
+        {name:'Brazil Flood', lat:-18.7111, lon:-45.3489},
+        {name:'Philippines Flood', lat:10.0207, lon:122.974},
+        {name:'Indonesia Flood', lat:1.01489, lon:124.606},
+        {name:'Mozambique Flood', lat:-25.8693, lon:32.3491}
+      ];
+      var liberia = [
+        {id:1089, name:'1089', lat:6.61336, lon:-10.3271},
+        {id:1449, name:'1449', lat:7.05753, lon:-10.9621},
+        {id:3177, name:'3177', lat:6.50598, lon:-10.5823},
+        {id:3334, name:'3334', lat:6.2298, lon:-10.2126},
+        {id:3669, name:'3669', lat:6.01301, lon:-7.15018}
+      ];
+      var health = [
+        {name:'Zolowo Clinic', lat:7.6527481, lon:-9.5385189},
+        {name:'International Poly Clinic', lat:6.3930927, lon:-10.7063399},
+        {name:'Zekepa Clinic', lat:6.6470452, lon:-9.1174954},
+        {name:'Fassavolu Clinic', lat:8.3896447, lon:-10.0665465},
+        {name:'Worhn Clinic', lat:6.5970456, lon:-10.0185758}
+      ];
+
+      function addMarkers(list, color){
+        list.forEach(function(p){
+          var m = L.circleMarker([p.lat,p.lon],{radius:6,fillColor:color,color:'#000',weight:1,opacity:1,fillOpacity:0.9}).addTo(map);
+          m.bindPopup((p.name||p.id)+"<br/>"+(p.lat.toFixed(5))+", "+(p.lon.toFixed(5)));
+        });
+      }
+      addMarkers(global,'#f59e0b');
+      addMarkers(liberia,'#60a5fa');
+      addMarkers(health,'#10b981');
+
+    } catch(e) { console.error('Map init failed', e); }
+    </script>
 
 </body>
 </html>
