@@ -18,7 +18,7 @@
             --text-secondary: #9ca3af;
             --preview-bg: #0d1117;
         }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
         
         nav { background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(15px); padding: 1.25rem 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
@@ -70,6 +70,8 @@
         .table-preview td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #c9d1d9; }
         .table-preview tr:nth-child(even) { background: rgba(255,255,255,0.01); }
 
+        .site-main { flex: 1; }
+
         footer { padding: 8rem 2rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; background: #020617; border-top: 1px solid var(--border); }
     </style>
 
@@ -87,6 +89,8 @@
             </div>
         </div>
     </nav>
+
+    <main class="site-main">
 
     <div class="hero">
         <span class="branding">Global to Local Analysis</span>
@@ -204,6 +208,7 @@
     </div>
 
 
+    </main>
 
     <footer>
         © 2026 Global Flood Archive & Liberia Risk Registry.
