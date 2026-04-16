@@ -3,22 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV Tools - Liberia Analysis</title>
+    <title>CSV Data Inspector - FloodArchive+</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8fafc; color: #334155; }
-        nav { background: #1e293b; padding: 1.25rem 0; border-bottom: 1px solid #e2e8f0; }
-        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
-        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
-        .home-link { font-weight: bold; margin-left: 0 !important; color: #6366f1 !important; }
-        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-        .upload-box { background: white; padding: 2.5rem; border-radius: 12px; border: 2px dashed #cbd5e1; text-align: center; margin-bottom: 2rem; transition: border-color 0.3s; }
-        .upload-box:hover { border-color: #6366f1; }
-        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; font-size: 0.9rem; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        th, td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; text-align: left; }
-        th { background: #f1f5f9; font-weight: 600; color: #475569; }
-        .btn { background: #6366f1; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
-        .btn:hover { background: #4f46e5; }
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #818cf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            line-height: 1.6;
+        }
+        nav { 
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 1.25rem 0; 
+            border-bottom: 1px solid var(--border);
+        }
+        nav .container { 
+            max-width: 1100px; 
+            margin: auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 2rem; 
+        }
+        nav a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.9rem; }
+        .home-link { font-weight: 800; margin-left: 0 !important; color: var(--accent) !important; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .container { max-width: 1100px; margin: 3rem auto; padding: 0 2rem; }
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+        p { color: var(--text-muted); margin-bottom: 2.5rem; }
+
+        .upload-box { 
+            background: var(--card-bg); 
+            padding: 3rem; 
+            border-radius: 20px; 
+            border: 2px dashed var(--border); 
+            text-align: center; 
+            margin-bottom: 3rem; 
+            transition: all 0.3s; 
+        }
+        .upload-box:hover { border-color: var(--accent); background: #1e293b; }
+        
+        #tableContainer {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { padding: 14px 18px; border-bottom: 1px solid var(--border); text-align: left; }
+        th { background: rgba(255,255,255,0.03); font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; }
+        td { color: var(--text-muted); }
+        tr:hover td { color: var(--text-main); background: rgba(255,255,255,0.02); }
+
+        .btn { 
+            background: var(--accent); 
+            color: white; 
+            padding: 14px 28px; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            transition: all 0.2s; 
+            font-family: inherit;
+        }
+        .btn:hover { background: #6366f1; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -35,13 +95,13 @@
     </nav>
 
     <div class="container">
-        <h1>CSV Data Inspector</h1>
-        <p>Upload a cleaned CSV file to view its contents before mapping.</p>
+        <h1>Data Inspector</h1>
+        <p>Preview and verify your research datasets (CSV) directly in the browser.</p>
         
         <div class="upload-box">
             <input type="file" id="csvFile" accept=".csv" style="display:none">
-            <button class="btn" onclick="document.getElementById('csvFile').click()">Choose CSV File</button>
-            <p id="fileName" style="margin-top:15px; color:#64748b;">No file chosen</p>
+            <button class="btn" onclick="document.getElementById('csvFile').click()">Select CSV File</button>
+            <p id="fileName" style="margin-top:15px; font-size: 0.9rem;">Drop a file here or click to browse</p>
         </div>
 
         <div id="tableContainer" style="overflow-x:auto">
@@ -55,6 +115,7 @@
             if (!file) return;
             
             document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileName').style.color = '#818cf8';
 
             Papa.parse(file, {
                 header: true,
@@ -85,7 +146,7 @@
             });
             
             html += '</tbody></table>';
-            if (data.length > 50) html += `<p style="color:#64748b; margin-top:10px;">Showing first 50 of ${data.length} rows.</p>`;
+            if (data.length > 50) html += `<p style="padding: 15px; color: #94a3b8; font-size: 0.8rem;">Showing first 50 of ${data.length} rows.</p>`;
             
             document.getElementById('tableContainer').innerHTML = html;
         }
