@@ -51,12 +51,85 @@ This document serves as a chronological log of the prompts and tasks used to dev
 
 ---
 
+## **Project 6: Branding & Visual Identity Refinement**
+*Goal: Correct the project scope from "Liberia Analysis" back to "Global to Local" and improve aesthetics.*
+
+21. **Scope & Aesthetic Correction:** "Why did you label it liberia analysis? it was a global flood map before i now narrowed it to liberia. Then it doesnt really look nice."
+    *   *Result:* Rebranded to **"Global Flood Archive & Liberia Risk Study"**. Redesigned `index.html` with a modern "Plus Jakarta Sans" font, a visual "Journey Flow" graphic, and high-impact cards that show the transition from Step 1 (Global) to Step 3 (Community).
+
+---
+
+## **Project 7: Vibrant Color-Coded Interface**
+*Goal: Use modern colors and gradients to make the project more visually appealing.*
+
+22. **Color Enhancement:** "Yes it is ok but can you add colours to the home page so it looks better."
+    *   *Result:* Introduced a vibrant, step-by-step color palette (Emerald, Amber, Rose). Added gradients to the hero section, glassmorphism-inspired cards with top-accent borders, and improved button styling.
+
+---
+
+## **Project 8: Professional Dark Mode Interface**
+*Goal: Revert to the structured journey layout but apply a high-end Dark Mode theme.*
+
+23. **Dark Mode Redesign:** "No revert it to previous and instead use dark mode."
+    *   *Result:* Reverted to the "Step-by-Step" flow design and implemented a **Dark Mode** theme using a Deep Navy (`#0f172a`) and Indigo (`#818cf8`) palette. Used glassmorphism for cards and high-contrast text for professional clarity.
+
+---
+
+## **Project 9: Visual Consistency Across Tools**
+*Goal: Ensure all sub-pages match the high-end Dark Mode aesthetic.*
+
+24. **Consistency Fix:** Updated the `uploader.html` (CSV Tools) page to use the same Deep Navy, Indigo, and Glassmorphism theme as the landing page for a seamless user experience.
+
+---
+
+## **Project 10: Custom Capability Documentation (Skill Creator)**
+*Goal: Formalize the CSV uploader workflow into a reusable agent skill.*
+
+25. **Skill Documentation:** "Document as a skill the design and functionality of the web app that visualises my own CSVs that I upload... Include the process for publishing: GitHub pages, main branch, and separate unique URLs."
+    *   *Result:* Created `csv-visualizer-app.skill`. This skill packages the Dark Mode templates, PapaParse integration, and specific GitHub Pages deployment rules (unique filenames and force-adding CSVs) for future reuse.
+
+---
+
+## **Project 11: Advanced Visualization Design (Next.js Inspiration)**
+*Goal: Design a high-end, professional geodata visualizer based on user-uploaded source code.*
+
+26. **Pro Visualizer Design:** "i just uploaded a folder, document and design the functionality of the webapp that visualizes my own csv that i uploaded so that i can ask you to create it."
+    *   *Result:* Created a design specification for **"FloodArchive+ Pro Visualizer"**. This app integrates the sophisticated UI of the uploaded `b_uSxzlLWalA6` folder (Next.js/Tailwind style) with the user's flood and health data. Features include a dynamic stats engine, synchronized data table, and a browser-side CSV dropzone for instant mapping.
+
+---
+
+## **Project 12: High-End Interactive Implementation**
+*Goal: Finalize and build the "Pro" version of the visualizer using Leaflet.*
+
+27. **Full Pro Build:** "Add all effects and build the map using leaflet and publish it."
+    *   *Result:* Built `pro-visualizer.html`. Features include a dynamic sidebar with live statistics (Total Dead, Displaced), a flight-animated map (flyTo), interactive CSV dropzone, and synchronized data tables. Integrated into the main landing page.
+
+---
+
+## **Project 13: Debugging & Optimization**
+*Goal: Fix the "stuck" loading screen on the Pro Visualizer.*
+
+28. **Visualizer Fix:** "Why is it not showing i mean the pro visualizer link or does it take long to open? its just showing crunching climate data."
+    *   *Result:* Identified that the simple CSV parser was failing on complex data. Upgraded `pro-visualizer.html` to use **PapaParse** for robust loading. Added an error-handling UI and a "Skip" button to the loading screen to ensure the user never gets stuck again.
+
+---
+
+## **Project 14: Final Professional Landing Page**
+*Goal: Create a clean, card-based landing page with full dataset metadata and navigation.*
+
+29. **Metadata Landing Page:** "I want a landing page... title and short description, section listing datasets used with metadata (name, source, format, date retrieved), and a top navigation menu linking to the map page, charts page and csv upload web app."
+    *   *Result:* Replaced `index.html` with a high-contrast Dark Mode design. Featured a persistent top navigation bar, a clear hero description, and three metadata cards detailing the Global Flood Archive, Liberia Health Infrastructure, and GBV Social Indicators.
+
+---
+
 ## **Workspace Maintenance & Automation**
 
 16. **Audit & Cleanup:** "Clean up the directory because there are many repeated files, but go through each one carefully before removing them."
 17. **Safety Verification:** "Check and confirm the sizes and purposes of these files (raw vs. intermediate) one last time before I proceed with the deletion."
 18. **Initial Documentation:** "Can you give me all the prompts I've used from the very beginning? I want to document them in a Markdown file."
 19. **Auto-Update Directive:** "I want you to always automatically update the prompts.md file without my telling you to all the time, can you do that?"
+20. **Functionality Inquiry:** "what is data tool there for exactly? im just asking"
+    *   *Result:* Explained the purpose of `uploader.html` as a local CSV inspector for data verification.
 
 ---
 
