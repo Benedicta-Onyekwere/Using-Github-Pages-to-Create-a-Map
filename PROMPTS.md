@@ -122,6 +122,22 @@ This document serves as a chronological log of the prompts and tasks used to dev
 
 ---
 
+## **Project 15: Dark Mode Narrative Integration**
+*Goal: Combine the professional merged narrative with a high-end Dark Mode theme.*
+
+30. **Theme Refinement:** "Put back in dark mode."
+    *   *Result:* Re-implemented `index.html` in Dark Mode using the Deep Navy and Indigo palette. Preserved the "Global to Local" narrative, the individual module buttons, and the technical Data Registry table.
+
+---
+
+## **Project 16: Data Transparency & Previews**
+*Goal: Integrate live data previews into the metadata registry for immediate context.*
+
+31. **Live Data Previews:** "Can you include in the first 5 datasets from the global flood archive, liberia flood and liberia healthsites files... DATA PREVIEW (FIRST 5 ROWS)... DATA PREVIEW (JSON SNIPPET)."
+    *   *Result:* Enhanced `index.html` with a new "Datasets & Metadata" section. Included technical CSV previews (tables) for the Global and Liberia flood archives and a formatted JSON snippet for the Liberia Health Sites. Maintained the high-contrast Dark Mode theme with frosted-glass containers.
+
+---
+
 ## **Workspace Maintenance & Automation**
 
 16. **Audit & Cleanup:** "Clean up the directory because there are many repeated files, but go through each one carefully before removing them."
