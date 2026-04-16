@@ -7,15 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
+            --bg: #020617;
+            --card-bg: #0f172a;
             --accent: #818cf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #334155;
-            --step1: #10b981;
-            --step2: #f59e0b;
-            --step3: #f43f5e;
+            --border: #1e293b;
         }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -25,11 +22,11 @@
             line-height: 1.6;
         }
         
-        /* Navigation */
+        /* Navigation Menu */
         nav { 
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
-            padding: 1.5rem 0; 
+            padding: 1.25rem 0; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
@@ -46,178 +43,143 @@
         .nav-links a { 
             color: var(--text-main); 
             text-decoration: none; 
-            margin-left: 2rem; 
+            margin-left: 1.5rem; 
             font-weight: 600; 
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: color 0.3s;
-            font-size: 0.9rem;
         }
         .nav-links a:hover { color: var(--accent); }
-        .logo { 
-            font-weight: 800; 
-            font-size: 1.2rem; 
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent);
-        }
+        .logo { font-weight: 800; font-size: 1.1rem; color: var(--accent); letter-spacing: 1px; }
 
-        /* Hero Section */
+        /* Hero / Description Section */
         .hero { 
-            padding: 8rem 2rem; 
+            padding: 6rem 2rem; 
             text-align: center;
-            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
-        }
-        .hero .badge {
-            background: rgba(129, 140, 248, 0.1);
-            color: var(--accent);
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            display: inline-block;
-            border: 1px solid rgba(129, 140, 248, 0.2);
+            max-width: 900px;
+            margin: auto;
         }
         .hero h1 { 
             font-size: 3.5rem; 
             font-weight: 800;
-            margin-bottom: 1.5rem; 
-            letter-spacing: -0.04em;
-            line-height: 1.1;
+            margin-bottom: 1rem; 
+            letter-spacing: -0.05em;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .hero p { 
-            max-width: 800px; 
-            margin: auto; 
-            font-size: 1.25rem; 
+            font-size: 1.2rem; 
             color: var(--text-muted);
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
-        /* Journey Flow */
-        .journey-flow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 5rem;
-            flex-wrap: wrap;
+        /* Dataset Metadata Section */
+        .container { max-width: 1200px; margin: auto; padding: 0 2rem 6rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; border-left: 4px solid var(--accent); padding-left: 1rem; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 2rem; 
         }
-        .flow-step {
-            background: var(--card-bg);
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-        .arrow { color: var(--border); font-weight: bold; }
-
-        /* Grid & Cards */
-        .container { max-width: 1200px; margin: auto; padding: 0 2rem 8rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
 
         .card { 
             background: var(--card-bg); 
-            border-radius: 24px; 
-            padding: 3rem; 
-            transition: all 0.3s ease;
+            border-radius: 20px; 
+            padding: 2.5rem; 
             border: 1px solid var(--border);
-            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
         }
         .card:hover { 
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: var(--accent);
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
-            background: #1e293b;
         }
         
-        .card h3 { font-size: 1.6rem; margin: 1rem 0; font-weight: 700; color: var(--text-main); }
-        .card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .card h3 { font-size: 1.3rem; margin-top: 0; color: var(--accent); }
         
-        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        
-        .tag { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 6px; letter-spacing: 0.5px; }
-        .tag-global { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); }
-        .tag-local { background: rgba(244, 63, 94, 0.1); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.2); }
+        /* Metadata List */
+        .meta-list { list-style: none; padding: 0; margin: 1.5rem 0; font-size: 0.9rem; }
+        .meta-list li { margin-bottom: 0.75rem; display: flex; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
+        .meta-list b { width: 120px; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; }
+        .meta-list span { color: var(--text-main); font-weight: 600; }
 
-        .btn-view { text-decoration: none; color: var(--accent); font-weight: 700; font-size: 0.95rem; transition: color 0.2s; }
-        .btn-view:hover { color: #a5b4fc; }
-
-        footer { background: #020617; padding: 5rem 2rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); }
+        footer { 
+            background: #000;
+            padding: 4rem 2rem; 
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="container">
-            <div class="logo">FloodArchive+</div>
+            <div class="logo">FLOODARCHIVE+</div>
             <div class="nav-links">
                 <a href="pro-visualizer.html">Pro App</a>
                 <a href="liberia.html">Health Map</a>
                 <a href="gbv_map.html">GBV Map</a>
+                <a href="dashboard.html">Charts</a>
                 <a href="uploader.html">Uploader</a>
             </div>
         </div>
     </nav>
 
     <div class="hero">
-        <div class="container">
-            <span class="badge">Global to Local Analysis</span>
-            <h1>Visualizing Crisis,<br>Empowering Resilience.</h1>
-            <p>
-                A comprehensive study of historical flood patterns from 1985 to the localized social and environmental impacts on healthcare and communities in Liberia.
-            </p>
-            
-            <div class="journey-flow">
-                <div class="flow-step">Step 1: Global Trends</div>
-                <div class="arrow">→</div>
-                <div class="flow-step">Step 2: Local Risks</div>
-                <div class="arrow">→</div>
-                <div class="flow-step">Step 3: Social Impact</div>
-            </div>
-        </div>
+        <h1>Global Patterns.<br>Local Vulnerabilities.</h1>
+        <p>
+            An integrated research project analyzing 40 years of global flood data and its specific socio-environmental impacts on healthcare and community safety in Liberia.
+        </p>
     </div>
 
     <div class="container">
+        <h2 class="section-title">Datasets & Sources</h2>
         <div class="grid">
-            <!-- Card 1 -->
+            <!-- Dataset 1 -->
             <div class="card">
-                <span class="tag tag-global">Phase 1: Analytics</span>
-                <h3>Pro Visualizer</h3>
-                <p>Advanced data exploration tool with real-time filtering, interactive stats, and smooth flight transitions for the global archive.</p>
-                <div class="card-footer">
-                    <a href="pro-visualizer.html" class="btn-view">Launch Pro App →</a>
-                </div>
+                <h3>Global Flood Archive</h3>
+                <ul class="meta-list">
+                    <li><b>Name:</b> <span>FloodArchive (1985-Present)</span></li>
+                    <li><b>Source:</b> <span>HDX / OCHA</span></li>
+                    <li><b>Format:</b> <span>CSV & GeoJSON</span></li>
+                    <li><b>Retrieved:</b> <span>April 2026</span></li>
+                </ul>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Historical data on flood severity, duration, and displacement across 130+ nations.</p>
             </div>
 
-            <!-- Card 2 -->
+            <!-- Dataset 2 -->
             <div class="card">
-                <span class="tag tag-local">Phase 2: Spatial Study</span>
-                <h3>Health Infrastructure Risk</h3>
-                <p>Mapping the critical overlap between Liberia's hospital network and flood hazard zones to identify facilities in danger.</p>
-                <div class="card-footer">
-                    <a href="liberia.html" class="btn-view">Analyze Risk Map →</a>
-                </div>
+                <h3>Liberia Health Infrastructure</h3>
+                <ul class="meta-list">
+                    <li><b>Name:</b> <span>Liberia Health Facilities</span></li>
+                    <li><b>Source:</b> <span>OpenStreetMap</span></li>
+                    <li><b>Format:</b> <span>GeoJSON</span></li>
+                    <li><b>Retrieved:</b> <span>April 2026</span></li>
+                </ul>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Spatial audit of healthcare sites used for calculating hazard overlap in flood zones.</p>
             </div>
 
-            <!-- Card 3 -->
+            <!-- Dataset 3 -->
             <div class="card">
-                <span class="tag tag-local">Phase 3: Community</span>
-                <h3>Social Vulnerability</h3>
-                <p>A deep dive into Grand Cape Mount County, analyzing GBV indicators and local response systems in hazardous regions.</p>
-                <div class="card-footer">
-                    <a href="gbv_map.html" class="btn-view">View Social Data →</a>
-                </div>
+                <h3>Social Vulnerability (GBV)</h3>
+                <ul class="meta-list">
+                    <li><b>Name:</b> <span>GBV Sub-national Indicators</span></li>
+                    <li><b>Source:</b> <span>LDHS / UNFPA</span></li>
+                    <li><b>Format:</b> <span>Enriched GeoJSON</span></li>
+                    <li><b>Retrieved:</b> <span>April 2026</span></li>
+                </ul>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">County-level social indicators for Grand Cape Mount, focusing on support systems and prevalence.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="container">
-            <p><b>Global Flood Archive & Liberia Risk Study</b></p>
-            <p>© 2026. Built for research and humanitarian analysis.</p>
-        </div>
+        &copy; 2026 Global Flood Archive & Liberia Risk Study.
     </footer>
 
 </body>
