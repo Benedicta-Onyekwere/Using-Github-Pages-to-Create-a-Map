@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} - FloodArchive+</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0f172a; --card-bg: #1e293b; --accent: #818cf8; --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg); color: var(--text-main); line-height: 1.6; }
+        nav { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        nav a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.9rem; }
+        .home-link { font-weight: 800; margin-left: 0 !important; color: var(--accent) !important; text-transform: uppercase; letter-spacing: 1px; }
+        .container { max-width: 1100px; margin: 3rem auto; padding: 0 2rem; }
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+        #tableContainer { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { padding: 14px 18px; border-bottom: 1px solid var(--border); text-align: left; }
+        th { background: rgba(255,255,255,0.03); font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; }
+        td { color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <nav><div class="container"><a href="index.html" class="home-link">← Return Home</a></div></nav>
+    <div class="container">
+        <h1>{{TITLE}}</h1>
+        <div id="tableContainer" style="overflow-x:auto"></div>
+    </div>
+    <script>
+        // Data loading logic goes here
+    </script>
+</body>
+</html>
