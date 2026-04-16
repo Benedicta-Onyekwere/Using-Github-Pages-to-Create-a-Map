@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloodArchive+ Pro Visualizer</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #020617;
+      --sidebar: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #818cf8;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+    
+    header {
+      background: var(--sidebar);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    .logo { font-weight: 800; font-size: 1.2rem; color: var(--accent); letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+    .home-btn { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9rem; background: var(--card); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; }
+    .home-btn:hover { background: var(--border); }
+
+    main { display: flex; height: calc(100vh - 70px); }
+    
+    .sidebar {
+      width: 420px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+    }
+    
+    .sidebar-content { padding: 1.5rem; overflow-y: auto; flex: 1; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--card); padding: 1rem; border-radius: 12px; border: 1px solid var(--border); transition: transform 0.2s; }
+    .stat-card:hover { transform: scale(1.02); }
+    .stat-val { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 0.7rem; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-top: 4px; }
+    
+    .filter-section { margin-bottom: 2rem; }
+    .filter-section h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; letter-spacing: 1px; }
+    select { width: 100%; padding: 0.8rem; border-radius: 10px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 0.9rem; margin-bottom: 1rem; outline: none; }
+    select:focus { border-color: var(--accent); }
+
+    .table-container { flex: 1; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    th { text-align: left; padding: 12px; background: var(--card); position: sticky; top: 0; color: var(--muted); font-weight: 700; border-bottom: 1px solid var(--border); }
+    td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--text-muted); transition: all 0.2s; }
+    tr:hover td { background: rgba(129, 140, 248, 0.1); color: var(--text); cursor: pointer; }
+    tr.selected td { background: var(--accent); color: white; }
+
+    .map-area { flex: 1; position: relative; }
+    #map { width: 100%; height: 100%; }
+
+    /* Loading Overlay */
+    #loading { position: absolute; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; transition: opacity 0.5s; }
+    .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Dropzone Effect */
+    .dropzone-hint { position: absolute; bottom: 20px; right: 20px; background: var(--sidebar); padding: 1rem; border-radius: 12px; border: 1px dashed var(--accent); color: var(--accent); font-size: 0.8rem; font-weight: 700; z-index: 500; pointer-events: none; }
+
+    .leaflet-popup-content-wrapper { background: var(--sidebar); color: var(--text); border-radius: 12px; border: 1px solid var(--border); }
+    .leaflet-popup-tip { background: var(--sidebar); }
+  </style>
+</head>
+<body>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <p>Crunching Climate Data...</p>
+  </div>
+
+  <header>
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2v20M2 12h20" stroke-opacity="0.2"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      FLOOD ARCHIVE PRO
+    </div>
+    <a href="index.html" class="home-btn">← Back to Journey</a>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-val" id="stat-points">-</div>
+            <div class="stat-label">Events</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="stat-countries">-</div>
+            <div class="stat-label">Countries</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="stat-dead">-</div>
+            <div class="stat-label">Total Dead</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="stat-displaced">-</div>
+            <div class="stat-label">Displaced</div>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3>Data Filters</h3>
+          <select id="country-filter"><option value="all">All Countries</option></select>
+          <select id="cause-filter"><option value="all">All Causes</option></select>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr><th>Year</th><th>Country</th><th>Severity</th></tr>
+            </thead>
+            <tbody id="data-table">
+              <!-- Rows injected here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </aside>
+
+    <div class="map-area">
+      <div id="map"></div>
+      <div class="dropzone-hint">Drag any CSV here to switch datasets</div>
+    </div>
+  </main>
+
+  <script>
+    let rawData = [];
+    let filteredData = [];
+    let map, markers = [];
+    let activeIndex = null;
+
+    function init() {
+      map = L.map('map', { zoomControl: false }).setView([15, 0], 2);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; CARTO'
+      }).addTo(map);
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+      // Load default data
+      fetch('floodarchive_cleaned.csv')
+        .then(res => res.text())
+        .then(text => processCSV(text));
+    }
+
+    function processCSV(text) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      
+      const latIdx = headers.findIndex(h => ['lat', 'latitude'].includes(h.toLowerCase()));
+      const lonIdx = headers.findIndex(h => ['long', 'longitude', 'lng'].includes(h.toLowerCase()));
+
+      rawData = [];
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',');
+        if (cols.length < headers.length) continue;
+        
+        const row = {};
+        headers.forEach((h, idx) => row[h] = cols[idx]);
+        row._lat = parseFloat(row[headers[latIdx]]);
+        row._lon = parseFloat(row[headers[lonIdx]]);
+        
+        if (!isNaN(row._lat)) rawData.push(row);
+      }
+
+      updateUI();
+      document.getElementById('loading').style.opacity = '0';
+      setTimeout(() => document.getElementById('loading').style.display = 'none', 500);
+    }
+
+    function updateUI() {
+      const countryVal = document.getElementById('country-filter').value;
+      const causeVal = document.getElementById('cause-filter').value;
+
+      filteredData = rawData.filter(d => {
+        const matchCountry = countryVal === 'all' || d.Country === countryVal;
+        const matchCause = causeVal === 'all' || d.categorised_reason === causeVal || d.MainCause === causeVal;
+        return matchCountry && matchCause;
+      });
+
+      // Update Stats
+      document.getElementById('stat-points').innerText = filteredData.length.toLocaleString();
+      document.getElementById('stat-countries').innerText = [...new Set(filteredData.map(d => d.Country))].length;
+      document.getElementById('stat-dead').innerText = filteredData.reduce((s, d) => s + (parseInt(d.Dead) || 0), 0).toLocaleString();
+      document.getElementById('stat-displaced').innerText = filteredData.reduce((s, d) => s + (parseInt(d.Displaced) || 0), 0).toLocaleString();
+
+      // Update Filters if first time
+      if (document.getElementById('country-filter').children.length === 1) {
+        const countries = [...new Set(rawData.map(d => d.Country))].sort();
+        countries.forEach(c => {
+          const opt = new Option(c, c);
+          document.getElementById('country-filter').add(opt);
+        });
+        const causes = [...new Set(rawData.map(d => d.categorised_reason || d.MainCause))].filter(Boolean).sort();
+        causes.forEach(c => {
+          const opt = new Option(c, c);
+          document.getElementById('cause-filter').add(opt);
+        });
+      }
+
+      // Update Table
+      const tbody = document.getElementById('data-table');
+      tbody.innerHTML = filteredData.slice(0, 100).map((d, i) => `
+        <tr onclick="focusPoint(${i})">
+          <td>${d.Year || 'N/A'}</td>
+          <td>${d.Country}</td>
+          <td style="color:${d.Severity > 1.5 ? '#fb7185' : '#4ade80'}"><b>${d.Severity || 1}</b></td>
+        </tr>
+      `).join('');
+
+      // Update Map
+      markers.forEach(m => map.removeLayer(m));
+      markers = filteredData.map((d, i) => {
+        const m = L.circleMarker([d._lat, d._lon], {
+          radius: Math.max(5, (d.Severity || 1) * 6),
+          fillColor: d.Severity > 1.5 ? '#f43f5e' : '#10b981',
+          color: '#fff', weight: 1, fillOpacity: 0.7
+        }).addTo(map);
+        m.bindPopup(`<b>${d.Country}</b><br>${d.Year}<br>Displaced: ${d.Displaced || 0}`);
+        return m;
+      });
+      
+      if (filteredData.length > 0) {
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds(), { padding: [50, 50] });
+      }
+    }
+
+    function focusPoint(idx) {
+      const d = filteredData[idx];
+      map.flyTo([d._lat, d._lon], 8, { duration: 1.5 });
+      markers[idx].openPopup();
+    }
+
+    document.getElementById('country-filter').addEventListener('change', updateUI);
+    document.getElementById('cause-filter').addEventListener('change', updateUI);
+
+    window.addEventListener('dragover', e => e.preventDefault());
+    window.addEventListener('drop', e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (file && file.name.endsWith('.csv')) {
+        const reader = new FileReader();
+        reader.onload = e => processCSV(e.target.result);
+        reader.readAsText(file);
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
