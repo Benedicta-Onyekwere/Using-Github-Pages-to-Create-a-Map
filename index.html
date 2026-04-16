@@ -1,164 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Liberia Health Infrastructure & Flood Risk</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Leaflet & Clustering CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-    
+    <title>Liberia Data Analysis Project</title>
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f9; }
-        #map { height: 100vh; width: 100%; }
-        
-        /* Professional Legend Styling */
-        .legend {
-            padding: 12px;
-            background: white;
-            background: rgba(255,255,255,0.95);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            border-radius: 8px;
-            line-height: 1.6;
-            color: #333;
-            max-width: 200px;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --light: #ecf0f1;
         }
-        .legend h4 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
-        .legend i { width: 14px; height: 14px; float: left; margin-right: 10px; margin-top: 4px; opacity: 0.9; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2); }
-        .legend .at-risk { border: 2px solid #fff; box-shadow: 0 0 0 2px #e74c3c; background: #e74c3c; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
         
-        /* Popup Styling */
-        .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 3px 14px rgba(0,0,0,0.4); }
-        .at-risk-popup b { color: #e74c3c; font-size: 14px; }
+        /* Navigation */
+        nav { background: var(--primary); padding: 1rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .logo { font-weight: bold; font-size: 1.2rem; }
+
+        /* Hero Section */
+        .hero { background: white; padding: 4rem 1rem; text-align: center; border-bottom: 1px solid #ddd; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary); }
+        .hero p { max-width: 800px; margin: auto; line-height: 1.6; font-size: 1.1rem; color: #666; }
+
+        /* Main Content */
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        h2 { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 2rem; }
+
+        /* Dataset Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .card h3 { margin-top: 0; color: var(--accent); }
+        .meta { font-size: 0.9rem; line-height: 1.8; }
+        .meta b { color: #555; display: inline-block; width: 100px; }
+
+        footer { text-align: center; padding: 3rem; color: #999; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-    <div id="map"></div>
 
-    <!-- Leaflet & Clustering JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    
-    <script>
-        // Initialize Map with a clean "CartoDB Positron" tile set
-        var map = L.map('map').setView([6.489, -10.797], 7);
-        
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap &copy; CARTO',
-            subdomains: 'abcd',
-            maxZoom: 20
-        }).addTo(map);
+    <nav>
+        <div class="container">
+            <div class="logo">Liberia Analysis</div>
+            <div>
+                <a href="liberia.html">Health Risk Map</a>
+                <a href="gbv_map.html">GBV Map</a>
+                <a href="dashboard.html">Charts</a>
+                <a href="uploader.html">CSV Tools</a>
+            </div>
+        </div>
+    </nav>
 
-        // Define Color Palettes
-        var colors = {
-            atRisk: '#e74c3c', // Vibrant Red
-            healthSite: '#5d6d7e', // Muted Blue-Grey
-            floodHigh: '#154360', // Deep Blue
-            floodMed: '#2980b9', // Medium Blue
-            floodLow: '#aed6f1'  // Light Blue
-        };
+    <div class="hero">
+        <div class="container">
+            <h1>Liberia: Crisis & Social Response</h1>
+            <p>
+                An integrated data project exploring the intersection of environmental hazards, 
+                public health infrastructure, and social indicators in Liberia. This project 
+                visualizes flood risks, identifies at-risk health facilities, and maps 
+                gender-based violence prevalence.
+            </p>
+        </div>
+    </div>
 
-        // 1. Load AT-RISK Health Facilities (Highlighted Red Markers)
-        var atRiskLayer = L.layerGroup().addTo(map);
-        fetch('at_risk_health_facilities.geojson')
-            .then(res => res.json())
-            .then(data => {
-                L.geoJSON(data, {
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup("<div class='at-risk-popup'><b>⚠️ AT RISK: " + (feature.properties.name || "Unnamed Facility") + "</b><br>" +
-                                         "<b>Type:</b> " + feature.properties.amenity + "<br>" +
-                                         "<b>Operator:</b> " + (feature.properties.operator || "Unknown") + "</div>");
-                    },
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, {
-                            radius: 10,
-                            fillColor: colors.atRisk,
-                            color: "#fff",
-                            weight: 2,
-                            opacity: 1,
-                            fillOpacity: 0.9
-                        });
-                    }
-                }).addTo(atRiskLayer);
-            });
+    <div class="container">
+        <h2>Datasets Used</h2>
+        <div class="grid">
+            <!-- Dataset 1 -->
+            <div class="card">
+                <h3>Global Flood Archive</h3>
+                <div class="meta">
+                    <div><b>Source:</b> HDX / OCHA</div>
+                    <div><b>Format:</b> GeoJSON / CSV</div>
+                    <div><b>Retrieved:</b> April 2026</div>
+                    <p>Comprehensive record of global flood events since 1985, localized for Liberia analysis.</p>
+                </div>
+            </div>
 
-        // 2. Load General Health Facilities (Using Clustering to keep it clean)
-        var healthCluster = L.markerClusterGroup({
-            maxClusterRadius: 50,
-            showCoverageOnHover: false
-        });
-        
-        fetch('liberia_health_facilities.geojson')
-            .then(res => res.json())
-            .then(data => {
-                var geoJsonLayer = L.geoJSON(data, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, {
-                            radius: 4,
-                            fillColor: colors.healthSite,
-                            color: "#2c3e50",
-                            weight: 1,
-                            fillOpacity: 0.6
-                        });
-                    }
-                });
-                healthCluster.addLayer(geoJsonLayer);
-                map.addLayer(healthCluster);
-            });
+            <!-- Dataset 2 -->
+            <div class="card">
+                <h3>Health Facilities</h3>
+                <div class="meta">
+                    <div><b>Source:</b> OpenStreetMap</div>
+                    <div><b>Format:</b> GeoJSON</div>
+                    <div><b>Retrieved:</b> April 2026</div>
+                    <p>Location and metadata for clinics, hospitals, and pharmacies across all Liberian counties.</p>
+                </div>
+            </div>
 
-        // 3. Load Flood Events (Blue scale for water)
-        function getFloodColor(s) {
-            return s == '2'   ? colors.floodHigh : 
-                   s == '1.5' ? colors.floodMed : 
-                                colors.floodLow;
-        }
+            <!-- Dataset 3 -->
+            <div class="card">
+                <h3>GBV Indicators</h3>
+                <div class="meta">
+                    <div><b>Source:</b> LDHS (DHS Program)</div>
+                    <div><b>Format:</b> Enriched GeoJSON</div>
+                    <div><b>Retrieved:</b> April 2026</div>
+                    <p>Sub-national indicators for gender-based violence and FGM prevalence in Grand Cape Mount.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        var floodLayer = L.layerGroup().addTo(map);
-        fetch('floods.geojson')
-            .then(res => res.json())
-            .then(data => {
-                L.geoJSON(data, {
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup("<b>Historical Flood</b><br>Severity: " + (feature.properties.severity || "1"));
-                    },
-                    pointToLayer: function (feature, latlng) {
-                        var s = feature.properties.severity;
-                        return L.circleMarker(latlng, {
-                            radius: s == '2' ? 12 : s == '1.5' ? 8 : 5,
-                            fillColor: getFloodColor(s),
-                            color: "#fff",
-                            weight: 1,
-                            fillOpacity: 0.7
-                        });
-                    }
-                }).addTo(floodLayer);
-            });
+    <footer>
+        &copy; 2026 Liberia Analysis Project | Built with Leaflet & Chart.js
+    </footer>
 
-        // Add Layer Control
-        var overlayMaps = {
-            "<span style='color: #e74c3c; font-weight: bold;'>⚠️ At-Risk Sites</span>": atRiskLayer,
-            "Health Facilities": healthCluster,
-            "Flood History": floodLayer
-        };
-        L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
-
-        // Legend
-        var legend = L.control({position: 'bottomright'});
-        legend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'legend');
-            div.innerHTML += '<h4>Map Key</h4>';
-            div.innerHTML += '<i style="background:' + colors.atRisk + '; border: 2px solid #fff; outline: 2px solid #e74c3c;"></i> <b>At-Risk Site</b><br>';
-            div.innerHTML += '<i style="background:' + colors.healthSite + '"></i> Health Facility<br>';
-            div.innerHTML += '<br><h4>Flood Severity</h4>';
-            div.innerHTML += '<i style="background:' + colors.floodHigh + '"></i> Major Event<br>';
-            div.innerHTML += '<i style="background:' + colors.floodMed + '"></i> Moderate Event<br>';
-            div.innerHTML += '<i style="background:' + colors.floodLow + '"></i> Minor Event<br>';
-            return div;
-        };
-        legend.addTo(map);
-
-    </script>
 </body>
 </html>

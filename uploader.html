@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Tools - Liberia Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8f9fa; }
+        nav { background: #2c3e50; padding: 1rem; }
+        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; }
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .upload-box { background: white; padding: 2rem; border-radius: 8px; border: 2px dashed #3498db; text-align: center; margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; font-size: 0.9rem; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background: #f4f4f4; }
+        .btn { background: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="index.html" style="font-weight:bold; margin-left:0;">Liberia Analysis</a>
+            <div>
+                <a href="index.html">Home</a>
+                <a href="liberia.html">Health Map</a>
+                <a href="gbv_map.html">GBV Map</a>
+                <a href="dashboard.html">Charts</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>CSV Data Inspector</h1>
+        <p>Upload a cleaned CSV file to view its contents before mapping.</p>
+        
+        <div class="upload-box">
+            <input type="file" id="csvFile" accept=".csv" style="display:none">
+            <button class="btn" onclick="document.getElementById('csvFile').click()">Choose CSV File</button>
+            <p id="fileName" style="margin-top:10px; color:#666;">No file chosen</p>
+        </div>
+
+        <div id="tableContainer" style="overflow-x:auto">
+            <!-- Table will appear here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            document.getElementById('fileName').textContent = file.name;
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    renderTable(results.data);
+                }
+            });
+        });
+
+        function renderTable(data) {
+            if (data.length === 0) return;
+            
+            let html = '<table><thead><tr>';
+            const headers = Object.keys(data[0]);
+            
+            headers.forEach(h => {
+                html += `<th>${h}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+            
+            // Show only first 50 rows for performance
+            data.slice(0, 50).forEach(row => {
+                html += '<tr>';
+                headers.forEach(h => {
+                    html += `<td>${row[h] || ''}</td>`;
+                });
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table>';
+            if (data.length > 50) html += `<p>Showing first 50 of ${data.length} rows.</p>`;
+            
+            document.getElementById('tableContainer').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
