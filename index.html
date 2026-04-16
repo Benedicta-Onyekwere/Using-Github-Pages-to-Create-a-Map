@@ -7,30 +7,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f172a;
-            --step1: #10b981; /* Emerald */
-            --step2: #f59e0b; /* Amber */
-            --step3: #f43f5e; /* Rose */
-            --accent: #6366f1; /* Indigo */
-            --bg: #f8fafc;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #818cf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
         }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             margin: 0; 
             background: var(--bg); 
-            color: var(--primary); 
+            color: var(--text-main); 
             line-height: 1.6;
         }
         
         /* Navigation */
         nav { 
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 1.25rem 0; 
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 1.5rem 0; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border);
         }
         nav .container { 
             max-width: 1200px; 
@@ -41,176 +41,206 @@
             padding: 0 2rem;
         }
         .nav-links a { 
-            color: var(--primary); 
+            color: var(--text-main); 
             text-decoration: none; 
             margin-left: 2rem; 
-            font-weight: 700; 
-            font-size: 0.9rem;
+            font-weight: 600; 
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
         .nav-links a:hover { color: var(--accent); }
-        .logo { font-weight: 800; font-size: 1.3rem; color: var(--primary); letter-spacing: -1px; }
+        .logo { 
+            font-weight: 800; 
+            font-size: 1.2rem; 
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+        }
 
-        /* Colorful Hero Section */
+        /* Hero Section - Dark Journey */
         .hero { 
-            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #fdf2f8 100%);
             padding: 8rem 2rem; 
             text-align: center;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+        }
+        .hero .badge {
+            background: rgba(129, 140, 248, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: inline-block;
+            border: 1px solid rgba(129, 140, 248, 0.2);
         }
         .hero h1 { 
-            font-size: 4rem; 
+            font-size: 3.5rem; 
             font-weight: 800;
             margin-bottom: 1.5rem; 
-            letter-spacing: -0.05em;
-            line-height: 1;
-            background: linear-gradient(to right, #1e293b, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
         }
         .hero p { 
-            max-width: 700px; 
+            max-width: 800px; 
             margin: auto; 
             font-size: 1.25rem; 
-            color: #64748b;
-            margin-bottom: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
         }
 
-        /* Journey Flow with Colors */
+        /* Journey Progress Bar - Dark Theme */
         .journey-flow {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            margin-bottom: 5rem;
             flex-wrap: wrap;
         }
         .flow-step {
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
         }
-        .s1 { background: var(--step1); }
-        .s2 { background: var(--step2); }
-        .s3 { background: var(--step3); }
-        .arrow { color: #cbd5e1; font-weight: 900; }
+        .arrow { color: var(--border); font-weight: bold; }
 
-        /* Grid & Cards */
-        .container { max-width: 1200px; margin: auto; padding: 5rem 2rem; }
+        /* Dashboard Sections */
+        .container { max-width: 1200px; margin: auto; padding: 0 2rem 8rem; }
+        
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
             gap: 2.5rem; 
         }
 
         .card { 
-            background: white; 
-            border-radius: 30px; 
+            background: var(--card-bg); 
+            border-radius: 24px; 
             padding: 3rem; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
             position: relative;
         }
         .card:hover { 
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+            background: #1e293b;
         }
         
-        /* Card Top Accents */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 8px;
-            border-radius: 30px 30px 0 0;
+        .card h3 { 
+            font-size: 1.6rem;
+            margin: 1rem 0;
+            font-weight: 700;
+            color: var(--text-main);
         }
-        .card-s1::before { background: var(--step1); }
-        .card-s2::before { background: var(--step2); }
-        .card-s3::before { background: var(--step3); }
-
-        .card h3 { font-size: 1.75rem; margin-top: 0.5rem; font-weight: 800; letter-spacing: -0.02em; }
-        .card p { color: #64748b; font-size: 1rem; }
+        
+        .card-footer {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+        .tag-global { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); }
+        .tag-local { background: rgba(244, 63, 94, 0.1); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.2); }
 
         .btn-view {
-            display: inline-block;
-            margin-top: 2rem;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 0.9rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            transition: all 0.2s;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
-        .btn-s1 { background: #ecfdf5; color: var(--step1); }
-        .btn-s2 { background: #fffbeb; color: var(--step2); }
-        .btn-s3 { background: #fff1f2; color: var(--step3); }
-        
-        .btn-view:hover { filter: brightness(0.95); transform: scale(1.05); }
+        .btn-view:hover { color: #a5b4fc; }
 
+        /* Footer */
         footer { 
-            background: #0f172a;
+            background: #020617;
             padding: 5rem 2rem; 
             text-align: center;
-            color: #94a3b8;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
         }
-        footer b { color: white; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="container">
-            <div class="logo">FLOOD ARCHIVE +</div>
+            <div class="logo">FloodArchive+</div>
             <div class="nav-links">
-                <a href="dashboard.html">Trends</a>
-                <a href="liberia.html">Health</a>
-                <a href="gbv_map.html">GBV</a>
-                <a href="uploader.html">Uploader</a>
+                <a href="dashboard.html">Global Trends</a>
+                <a href="liberia.html">Health Risks</a>
+                <a href="gbv_map.html">GBV Map</a>
+                <a href="uploader.html">Data Tools</a>
             </div>
         </div>
     </nav>
 
     <div class="hero">
         <div class="container">
-            <h1>Global Data.<br>Local Impact.</h1>
+            <span class="badge">Global to Local Analysis</span>
+            <h1>Visualizing Crisis,<br>Empowering Resilience.</h1>
             <p>
-                An interactive exploration of historical flood patterns and their cascading effects on healthcare infrastructure and social vulnerability in West Africa.
+                A comprehensive study of historical flood patterns from 1985 to the localized social and environmental impacts on healthcare and communities in Liberia.
             </p>
             
             <div class="journey-flow">
-                <div class="flow-step s1">1. GLOBAL TRENDS</div>
-                <span class="arrow">→</span>
-                <div class="flow-step s2">2. HEALTH RISK</div>
-                <span class="arrow">→</span>
-                <div class="flow-step s3">3. SOCIAL IMPACT</div>
+                <div class="flow-step">Step 1: Global Trends</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Step 2: Local Risks</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Step 3: Social Impact</div>
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="grid">
-            <!-- Step 1 -->
-            <div class="card card-s1">
-                <h3>Global Analytics</h3>
-                <p>Explore displacement trends and severity patterns across 40 years of global flood archives. Data-driven insights at scale.</p>
-                <a href="dashboard.html" class="btn-view btn-s1">Open Dashboard →</a>
+            <!-- Card 1: Global -->
+            <div class="card">
+                <span class="tag tag-global">Phase 1: Analytics</span>
+                <h3>Global Flood Patterns</h3>
+                <p>Decoding displacement data and severity metrics across 40 years of archives to understand high-level environmental trends.</p>
+                <div class="card-footer">
+                    <a href="dashboard.html" class="btn-view">Open Dashboard →</a>
+                </div>
             </div>
 
-            <!-- Step 2 -->
-            <div class="card card-s2">
-                <h3>Healthcare Risk</h3>
-                <p>A specialized spatial assessment of Liberia's healthcare facilities overlapping with historical flood hazard zones.</p>
-                <a href="liberia.html" class="btn-view btn-s2">Analyze Risk →</a>
+            <!-- Card 2: Local Map -->
+            <div class="card">
+                <span class="tag tag-local">Phase 2: Spatial Study</span>
+                <h3>Health Infrastructure Risk</h3>
+                <p>Mapping the critical overlap between Liberia's hospital network and flood hazard zones to identify facilities in danger.</p>
+                <div class="card-footer">
+                    <a href="liberia.html" class="btn-view">Analyze Risk Map →</a>
+                </div>
             </div>
 
-            <!-- Step 3 -->
-            <div class="card card-s3">
-                <h3>Social Metrics</h3>
-                <p>Mapping the intersection of environment and community, focusing on GBV indicators in Grand Cape Mount County.</p>
-                <a href="gbv_map.html" class="btn-view btn-s3">View Social Map →</a>
+            <!-- Card 3: Social -->
+            <div class="card">
+                <span class="tag tag-local">Phase 3: Community</span>
+                <h3>Social Vulnerability</h3>
+                <p>A deep dive into Grand Cape Mount County, analyzing GBV indicators and local response systems in hazardous regions.</p>
+                <div class="card-footer">
+                    <a href="gbv_map.html" class="btn-view">View Social Data →</a>
+                </div>
             </div>
         </div>
     </div>
@@ -218,7 +248,7 @@
     <footer>
         <div class="container">
             <p><b>Global Flood Archive & Liberia Risk Study</b></p>
-            <p>© 2026. Data sourced from OCHA, HDX, and LDHS.</p>
+            <p>© 2026. Built for research and humanitarian analysis.</p>
         </div>
     </footer>
 
