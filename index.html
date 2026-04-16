@@ -47,22 +47,23 @@
         .btn-social { background: var(--accent-social); box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4); }
 
         /* Datasets & Metadata Section */
-        .dataset-card { background: #0d1117; border-radius: 20px; border: 1px solid var(--border); padding: 2.5rem; margin-bottom: 3rem; }
-        .dataset-meta { margin-bottom: 1.5rem; }
-        .dataset-meta h3 { color: #fff; font-size: 1.4rem; margin-bottom: 0.5rem; }
-        .dataset-meta div { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+        .dataset-card { background: linear-gradient(180deg,#0b1220 0%, #0f1724 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,0.04); padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 8px 30px rgba(2,6,23,0.6); }
+        .dataset-meta { margin-bottom: 1.25rem; display:flex; flex-direction:column; gap:6px; }
+        .dataset-meta h3 { color: #fff; font-size: 1.45rem; margin-bottom: 0; }
+        .dataset-meta div { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0; }
         .dataset-meta b { color: var(--accent-pro); width: 140px; display: inline-block; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
         
-        .preview-title { font-size: 0.75rem; font-weight: 800; color: #6e7681; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; margin-top: 2rem; border-bottom: 1px solid #30363d; padding-bottom: 5px; }
-        pre { background: #010409; padding: 1.5rem; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; overflow-x: auto; color: #c9d1d9; border: 1px solid #30363d; }
+        .preview-title { font-size: 0.75rem; font-weight: 800; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; margin-top: 1.5rem; border-bottom: 1px dashed rgba(255,255,255,0.03); padding-bottom: 6px; }
+        pre { background: linear-gradient(180deg,#010409 0%, #071021 100%); padding: 1rem; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; overflow-x: auto; color: #c9d1d9; border: 1px solid rgba(255,255,255,0.03); }
         
-        .table-preview { width: 100%; border-collapse: collapse; font-family: monospace; font-size: 0.75rem; margin-top: 10px; }
-        .table-preview th { text-align: left; padding: 8px; color: #8b949e; border-bottom: 1px solid #30363d; }
-        .table-preview td { padding: 8px; border-bottom: 1px solid #21262d; }
+        .table-preview { width: 100%; border-collapse: collapse; font-family: monospace; font-size: 0.85rem; margin-top: 10px; background: transparent; }
+        .table-preview thead th { text-align: left; padding: 10px 12px; color: #c7d2fe; background: rgba(129,140,248,0.06); border-bottom: none; text-transform: uppercase; font-weight: 700; font-size: 0.75rem; }
+        .table-preview td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #c9d1d9; }
+        .table-preview tr:nth-child(even) { background: rgba(255,255,255,0.01); }
 
         footer { padding: 8rem 2rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; background: #020617; border-top: 1px solid var(--border); }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 </head>
 <body>
 
@@ -181,55 +182,12 @@
         </div>
     </div>
 
-        <div id="preview-map" style="height:420px; border-radius:12px; border:1px solid var(--border); margin-top:2rem;"></div>
+
 
     <footer>
         &copy; 2026 Global Flood Archive & Liberia Risk Registry.<br>
         Developed for professional humanitarian analysis and socio-environmental research.
     </footer>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-    // Initialize preview map and markers
-    try {
-      var map = L.map('preview-map').setView([6.5,-10],6);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom: 19, attribution: '© OpenStreetMap contributors'}).addTo(map);
-
-      // Global sample markers
-      var global = [
-        {name:'Algeria Flood', lat:35.8142, lon:5.23026},
-        {name:'Brazil Flood', lat:-18.7111, lon:-45.3489},
-        {name:'Philippines Flood', lat:10.0207, lon:122.974},
-        {name:'Indonesia Flood', lat:1.01489, lon:124.606},
-        {name:'Mozambique Flood', lat:-25.8693, lon:32.3491}
-      ];
-      var liberia = [
-        {id:1089, name:'1089', lat:6.61336, lon:-10.3271},
-        {id:1449, name:'1449', lat:7.05753, lon:-10.9621},
-        {id:3177, name:'3177', lat:6.50598, lon:-10.5823},
-        {id:3334, name:'3334', lat:6.2298, lon:-10.2126},
-        {id:3669, name:'3669', lat:6.01301, lon:-7.15018}
-      ];
-      var health = [
-        {name:'Zolowo Clinic', lat:7.6527481, lon:-9.5385189},
-        {name:'International Poly Clinic', lat:6.3930927, lon:-10.7063399},
-        {name:'Zekepa Clinic', lat:6.6470452, lon:-9.1174954},
-        {name:'Fassavolu Clinic', lat:8.3896447, lon:-10.0665465},
-        {name:'Worhn Clinic', lat:6.5970456, lon:-10.0185758}
-      ];
-
-      function addMarkers(list, color){
-        list.forEach(function(p){
-          var m = L.circleMarker([p.lat,p.lon],{radius:6,fillColor:color,color:'#000',weight:1,opacity:1,fillOpacity:0.9}).addTo(map);
-          m.bindPopup((p.name||p.id)+"<br/>"+(p.lat.toFixed(5))+", "+(p.lon.toFixed(5)));
-        });
-      }
-      addMarkers(global,'#f59e0b');
-      addMarkers(liberia,'#60a5fa');
-      addMarkers(health,'#10b981');
-
-    } catch(e) { console.error('Map init failed', e); }
-    </script>
 
 </body>
 </html>
