@@ -4,40 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liberia Data Analysis Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #34495e;
-            --accent: #3498db;
-            --light: #ecf0f1;
+            --primary: #1e293b;
+            --secondary: #6366f1;
+            --bg: #f8fafc;
+            --text: #334155;
+            --card-bg: #ffffff;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6;
+        }
         
         /* Navigation */
-        nav { background: var(--primary); padding: 1rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s; }
-        nav a:hover { color: var(--accent); }
-        .logo { font-weight: bold; font-size: 1.2rem; }
+        nav { 
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.25rem 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid #e2e8f0;
+        }
+        nav .container { 
+            max-width: 1200px; 
+            margin: auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 2rem;
+        }
+        .nav-links a { 
+            color: var(--text); 
+            text-decoration: none; 
+            margin-left: 2rem; 
+            font-weight: 500; 
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover { color: var(--secondary); }
+        .logo { 
+            font-weight: 700; 
+            font-size: 1.4rem; 
+            color: var(--primary);
+            letter-spacing: -0.025em;
+        }
 
         /* Hero Section */
-        .hero { background: white; padding: 4rem 1rem; text-align: center; border-bottom: 1px solid #ddd; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary); }
-        .hero p { max-width: 800px; margin: auto; line-height: 1.6; font-size: 1.1rem; color: #666; }
+        .hero { 
+            background: linear-gradient(to bottom, #ffffff, var(--bg));
+            padding: 6rem 2rem; 
+            text-align: center; 
+        }
+        .hero h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800;
+            margin-bottom: 1.5rem; 
+            color: var(--primary);
+            letter-spacing: -0.05em;
+        }
+        .hero p { 
+            max-width: 700px; 
+            margin: auto; 
+            font-size: 1.25rem; 
+            color: #64748b;
+        }
 
         /* Main Content */
-        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-        h2 { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 2rem; }
+        .container { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        
+        .section-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .section-header h2 { 
+            font-size: 2rem; 
+            font-weight: 700;
+            color: var(--primary);
+        }
 
         /* Dataset Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-        .card h3 { margin-top: 0; color: var(--accent); }
-        .meta { font-size: 0.9rem; line-height: 1.8; }
-        .meta b { color: #555; display: inline-block; width: 100px; }
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 2.5rem; 
+        }
+        .card { 
+            background: var(--card-bg); 
+            border-radius: 16px; 
+            padding: 2.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .card h3 { 
+            margin-top: 0; 
+            color: var(--secondary); 
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+        .meta-tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        .meta-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+        .meta-list li { 
+            font-size: 0.9rem; 
+            margin-bottom: 0.5rem; 
+            display: flex;
+            align-items: center;
+        }
+        .meta-list b { width: 100px; color: #94a3b8; font-weight: 500; }
 
-        footer { text-align: center; padding: 3rem; color: #999; font-size: 0.9rem; }
+        footer { 
+            text-align: center; 
+            padding: 4rem 2rem; 
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            color: #94a3b8; 
+            font-size: 0.95rem; 
+        }
+
+        /* Buttons on landing page */
+        .btn-group {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #0f172a; }
+        .btn-secondary { background: var(--secondary); }
+        .btn-secondary:hover { background: #4f46e5; }
     </style>
 </head>
 <body>
@@ -45,8 +169,8 @@
     <nav>
         <div class="container">
             <div class="logo">Liberia Analysis</div>
-            <div>
-                <a href="liberia.html">Health Risk Map</a>
+            <div class="nav-links">
+                <a href="liberia.html">Health Map</a>
                 <a href="gbv_map.html">GBV Map</a>
                 <a href="dashboard.html">Charts</a>
                 <a href="uploader.html">CSV Tools</a>
@@ -56,56 +180,62 @@
 
     <div class="hero">
         <div class="container">
-            <h1>Liberia: Crisis & Social Response</h1>
+            <h1>Data-Driven Insights for Liberia</h1>
             <p>
-                An integrated data project exploring the intersection of environmental hazards, 
-                public health infrastructure, and social indicators in Liberia. This project 
-                visualizes flood risks, identifies at-risk health facilities, and maps 
-                gender-based violence prevalence.
+                Bridging the gap between environmental risk, humanitarian response, and social justice through spatial analysis and interactive visualization.
             </p>
+            <div class="btn-group">
+                <a href="liberia.html" class="btn">Explore Health Risks</a>
+                <a href="dashboard.html" class="btn btn-secondary">View Analytics</a>
+            </div>
         </div>
     </div>
 
     <div class="container">
-        <h2>Datasets Used</h2>
+        <div class="section-header">
+            <h2>Research Datasets</h2>
+        </div>
         <div class="grid">
             <!-- Dataset 1 -->
             <div class="card">
+                <span class="meta-tag">Environmental</span>
                 <h3>Global Flood Archive</h3>
-                <div class="meta">
-                    <div><b>Source:</b> HDX / OCHA</div>
-                    <div><b>Format:</b> GeoJSON / CSV</div>
-                    <div><b>Retrieved:</b> April 2026</div>
-                    <p>Comprehensive record of global flood events since 1985, localized for Liberia analysis.</p>
-                </div>
+                <ul class="meta-list">
+                    <li><b>Source</b> HDX / OCHA</li>
+                    <li><b>Format</b> GeoJSON / CSV</li>
+                    <li><b>Updated</b> April 2026</li>
+                </ul>
+                <p>Historical record of flood impact zones, depth, and displacement metrics used to identify vulnerable population clusters.</p>
             </div>
 
             <!-- Dataset 2 -->
             <div class="card">
+                <span class="meta-tag">Infrastructure</span>
                 <h3>Health Facilities</h3>
-                <div class="meta">
-                    <div><b>Source:</b> OpenStreetMap</div>
-                    <div><b>Format:</b> GeoJSON</div>
-                    <div><b>Retrieved:</b> April 2026</div>
-                    <p>Location and metadata for clinics, hospitals, and pharmacies across all Liberian counties.</p>
-                </div>
+                <ul class="meta-list">
+                    <li><b>Source</b> OpenStreetMap</li>
+                    <li><b>Format</b> GeoJSON</li>
+                    <li><b>Updated</b> April 2026</li>
+                </ul>
+                <p>Comprehensive spatial audit of hospitals, clinics, and pharmacies used for cross-referencing flood hazard locations.</p>
             </div>
 
             <!-- Dataset 3 -->
             <div class="card">
+                <span class="meta-tag">Social</span>
                 <h3>GBV Indicators</h3>
-                <div class="meta">
-                    <div><b>Source:</b> LDHS (DHS Program)</div>
-                    <div><b>Format:</b> Enriched GeoJSON</div>
-                    <div><b>Retrieved:</b> April 2026</div>
-                    <p>Sub-national indicators for gender-based violence and FGM prevalence in Grand Cape Mount.</p>
-                </div>
+                <ul class="meta-list">
+                    <li><b>Source</b> LDHS (DHS Program)</li>
+                    <li><b>Format</b> Enriched GeoJSON</li>
+                    <li><b>Updated</b> April 2026</li>
+                </ul>
+                <p>Localized statistics on gender-based violence and social support infrastructure in Grand Cape Mount County.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 Liberia Analysis Project | Built with Leaflet & Chart.js
+        &copy; 2026 Liberia Analysis Initiative. Developed for public health research and humanitarian planning.
     </footer>
 
 </body>

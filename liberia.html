@@ -33,6 +33,7 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-btn">← Home</a>
     <div class="map-title"><h2>Liberia Health Risk Assessment</h2></div>
     <div id="map"></div>
 
@@ -128,6 +129,15 @@
             div.innerHTML += '<i style="background:' + colors.healthSite + '"></i> Health Facility<br>';
             div.innerHTML += '<br><h4>Flood Severity</h4>';
             div.innerHTML += '<i style="background:' + colors.floodHigh + '"></i> High Risk<br>';
+            div.innerHTML += '<i style="background:' + colors.floodMed + '"></i> Medium Risk<br>';
+            div.innerHTML += '<i style="background:' + colors.floodLow + '"></i> Low Risk<br>';
+            return div;
+        };
+        legend.addTo(map);
+    </script>
+</body>
+</html>
+High Risk<br>';
             div.innerHTML += '<i style="background:' + colors.floodMed + '"></i> Medium Risk<br>';
             div.innerHTML += '<i style="background:' + colors.floodLow + '"></i> Low Risk<br>';
             return div;

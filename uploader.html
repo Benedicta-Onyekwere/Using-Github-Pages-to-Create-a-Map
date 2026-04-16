@@ -6,25 +6,27 @@
     <title>CSV Tools - Liberia Analysis</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8f9fa; }
-        nav { background: #2c3e50; padding: 1rem; }
-        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-        nav a { color: white; text-decoration: none; margin-left: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8fafc; color: #334155; }
+        nav { background: #1e293b; padding: 1.25rem 0; border-bottom: 1px solid #e2e8f0; }
+        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
+        .home-link { font-weight: bold; margin-left: 0 !important; color: #6366f1 !important; }
         .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-        .upload-box { background: white; padding: 2rem; border-radius: 8px; border: 2px dashed #3498db; text-align: center; margin-bottom: 2rem; }
-        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; font-size: 0.9rem; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background: #f4f4f4; }
-        .btn { background: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .upload-box { background: white; padding: 2.5rem; border-radius: 12px; border: 2px dashed #cbd5e1; text-align: center; margin-bottom: 2rem; transition: border-color 0.3s; }
+        .upload-box:hover { border-color: #6366f1; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; font-size: 0.9rem; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f1f5f9; font-weight: 600; color: #475569; }
+        .btn { background: #6366f1; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: #4f46e5; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="container">
-            <a href="index.html" style="font-weight:bold; margin-left:0;">Liberia Analysis</a>
+            <a href="index.html" class="home-link">← Return Home</a>
             <div>
-                <a href="index.html">Home</a>
                 <a href="liberia.html">Health Map</a>
                 <a href="gbv_map.html">GBV Map</a>
                 <a href="dashboard.html">Charts</a>
@@ -39,7 +41,7 @@
         <div class="upload-box">
             <input type="file" id="csvFile" accept=".csv" style="display:none">
             <button class="btn" onclick="document.getElementById('csvFile').click()">Choose CSV File</button>
-            <p id="fileName" style="margin-top:10px; color:#666;">No file chosen</p>
+            <p id="fileName" style="margin-top:15px; color:#64748b;">No file chosen</p>
         </div>
 
         <div id="tableContainer" style="overflow-x:auto">
@@ -74,7 +76,6 @@
             });
             html += '</tr></thead><tbody>';
             
-            // Show only first 50 rows for performance
             data.slice(0, 50).forEach(row => {
                 html += '<tr>';
                 headers.forEach(h => {
@@ -84,7 +85,7 @@
             });
             
             html += '</tbody></table>';
-            if (data.length > 50) html += `<p>Showing first 50 of ${data.length} rows.</p>`;
+            if (data.length > 50) html += `<p style="color:#64748b; margin-top:10px;">Showing first 50 of ${data.length} rows.</p>`;
             
             document.getElementById('tableContainer').innerHTML = html;
         }
