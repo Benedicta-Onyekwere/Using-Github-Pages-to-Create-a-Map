@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FloodArchive Research Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Global to Local | Environmental & Social Impact Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0f172a;
@@ -16,14 +16,14 @@
             --border: #e2e8f0;
         }
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             margin: 0; 
             background: var(--bg); 
             color: var(--text-main); 
             line-height: 1.6;
         }
         
-        /* Navigation - Minimalist */
+        /* Navigation */
         nav { 
             background: var(--primary);
             padding: 1rem 0; 
@@ -53,43 +53,60 @@
         .nav-links a:hover { color: #fff; }
         .logo { font-weight: 800; font-size: 1.1rem; color: #fff; letter-spacing: 1px; }
 
-        /* Hero - Large bold header */
+        /* Hero - Merged Narrative */
         .hero { 
             background: #fff;
-            padding: 100px 2rem; 
+            padding: 120px 2rem; 
             text-align: center;
             border-bottom: 1px solid var(--border);
         }
+        .hero .branding {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: block;
+        }
         .hero h1 { 
-            font-size: 3rem; 
+            font-size: 3.5rem; 
             font-weight: 800;
             margin-bottom: 1rem; 
             letter-spacing: -0.04em;
             color: var(--primary);
+            line-height: 1.1;
+        }
+        .hero .tagline {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            display: block;
         }
         .hero p { 
-            max-width: 700px; 
+            max-width: 800px; 
             margin: auto; 
-            font-size: 1.1rem; 
+            font-size: 1.15rem; 
             color: var(--text-muted);
         }
 
-        .main-container { max-width: 1100px; margin: auto; padding: 4rem 2rem; }
+        .main-container { max-width: 1100px; margin: auto; padding: 5rem 2rem; }
         
-        .section-header { margin-bottom: 3rem; }
-        .section-header h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 10px; }
-        .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+        .section-header { margin-bottom: 3.5rem; }
+        .section-header h2 { font-size: 1.6rem; font-weight: 800; color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 8px; margin-bottom: 12px; }
+        .section-header p { color: var(--text-muted); font-size: 1rem; }
 
-        /* Tool Cards Grid */
+        /* Module Grid */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 2rem; 
-            margin-bottom: 5rem;
+            gap: 2.5rem; 
+            margin-bottom: 6rem;
         }
         .card { 
             background: var(--card-bg); 
-            border-radius: 12px; 
+            border-radius: 16px; 
             padding: 2.5rem; 
             border: 1px solid var(--border);
             transition: all 0.3s ease;
@@ -99,38 +116,36 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
         .card:hover { 
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
             border-color: var(--accent);
         }
         
-        .card h3 { font-size: 1.25rem; margin-top: 0; color: var(--primary); font-weight: 700; margin-bottom: 1rem; }
-        .card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .card h3 { font-size: 1.4rem; margin-top: 0; color: var(--primary); font-weight: 800; margin-bottom: 1rem; }
+        .card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem; }
 
-        /* Action Buttons */
         .btn {
             display: inline-block;
-            background: var(--accent);
+            background: var(--primary);
             color: #fff;
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
             text-align: center;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
-        .btn:hover { background: #1d4ed8; }
-        .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-        .btn-outline:hover { background: rgba(37, 99, 235, 0.05); }
+        .btn:hover { background: var(--accent); transform: scale(1.02); }
 
-        /* Metadata Table */
+        /* Metadata Registry Table */
         .metadata-section {
             background: #fff;
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            padding: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            padding: 3rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            overflow-x: auto;
         }
         .metadata-table {
             width: 100%;
@@ -138,36 +153,37 @@
         }
         .metadata-table th {
             text-align: left;
-            padding: 1rem;
-            background: #f1f5f9;
+            padding: 1.25rem;
+            background: #f8fafc;
             color: var(--primary);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+            border-bottom: 2px solid var(--border);
         }
         .metadata-table td {
-            padding: 1rem;
+            padding: 1.5rem 1.25rem;
             border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         .metadata-table tr:last-child td { border-bottom: none; }
         
-        .format-badge {
+        .badge {
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 800;
             background: #eff6ff;
             color: var(--accent);
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
             border: 1px solid #dbeafe;
         }
 
         footer { 
-            padding: 5rem 2rem; 
+            padding: 6rem 2rem; 
             text-align: center; 
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             background: #fff;
             border-top: 1px solid var(--border);
         }
@@ -177,58 +193,63 @@
 
     <nav>
         <div class="container">
-            <div class="logo">FLOODARCHIVE RESEARCH</div>
+            <div class="logo">RESEARCH PORTAL</div>
             <div class="nav-links">
                 <a href="pro-visualizer.html">Pro App</a>
                 <a href="liberia.html">Maps</a>
                 <a href="dashboard.html">Charts</a>
-                <a href="uploader.html">Data Tools</a>
+                <a href="uploader.html">Uploader</a>
             </div>
         </div>
     </nav>
 
     <div class="hero">
-        <h1>Global Patterns.<br>Local Vulnerabilities.</h1>
-        <p>A unified research framework for analyzing forty years of global environmental hazards and their socio-economic impact on Liberian health systems.</p>
+        <span class="branding">Global to Local Analysis</span>
+        <h1>Environmental & Social Impact Portal</h1>
+        <span class="tagline">From Global Patterns to Community Realities.</span>
+        <p>
+            A specialized framework analyzing historical flood archives since 1985 to visualize 
+            the intersection of environmental hazards and social infrastructure in Liberia.
+        </p>
     </div>
 
     <div class="main-container">
-        <!-- Analysis Tools Section -->
+        <!-- Interactive Tools Section -->
         <div class="section-header">
-            <h2>Analysis Modules</h2>
-            <p>Select a specialized tool to begin data exploration.</p>
+            <h2>Interactive Research Tools</h2>
+            <p>Access specialized modules for spatial and statistical data exploration.</p>
         </div>
         
         <div class="grid">
             <div class="card">
                 <div>
                     <h3>Pro Visualizer</h3>
-                    <p>Advanced global archive explorer featuring live filtering, synchronized data tables, and smooth flight-animated transitions.</p>
+                    <p>Advanced global flood archive engine with live stats, flight-animated transitions, and multi-country filtering.</p>
                 </div>
-                <a href="pro-visualizer.html" class="btn">Launch Module</a>
+                <a href="pro-visualizer.html" class="btn">Launch Pro Module</a>
             </div>
 
             <div class="card">
                 <div>
                     <h3>Health Risk Map</h3>
-                    <p>Spatial study calculating the critical overlap between healthcare infrastructure and flood hazard zones across Liberia.</p>
+                    <p>Calculated spatial assessment of healthcare infrastructure locations overlapping with historical hazard zones.</p>
                 </div>
-                <a href="liberia.html" class="btn">View Map View</a>
+                <a href="liberia.html" class="btn">Open Map View</a>
             </div>
 
             <div class="card">
                 <div>
-                    <h3>Social Indicators</h3>
-                    <p>Sub-national indicators for Grand Cape Mount, focusing on gender-based violence (GBV) and community resilience.</p>
+                    <h3>Social Impact</h3>
+                    <p>County-level study of social indicators for Grand Cape Mount, focusing on GBV prevalence and support systems.</p>
                 </div>
-                <a href="gbv_map.html" class="btn">Explore Indicators</a>
+                <a href="gbv_map.html" class="btn">View Social Data</a>
             </div>
         </div>
 
         <!-- Metadata Section -->
         <div class="section-header">
-            <h2>Data Registry & Metadata</h2>
-            <p>Formal documentation and audit trail for all primary datasets used in this study.</p>
+            <h2>Technical Data Registry</h2>
+            <p>Formal documentation and audit trail for all primary datasets used in this research.</p>
         </div>
 
         <div class="metadata-section">
@@ -236,7 +257,7 @@
                 <thead>
                     <tr>
                         <th>Dataset Name</th>
-                        <th>Source</th>
+                        <th>Source Entity</th>
                         <th>File Format</th>
                         <th>Date Retrieved</th>
                     </tr>
@@ -245,25 +266,25 @@
                     <tr>
                         <td><b>Global Flood Archive</b></td>
                         <td>HDX / OCHA</td>
-                        <td><span class="format-badge">CSV / GeoJSON</span></td>
+                        <td><span class="badge">CSV / GeoJSON</span></td>
                         <td>April 14, 2026</td>
                     </tr>
                     <tr>
                         <td><b>Liberia Health Facilities</b></td>
                         <td>OpenStreetMap</td>
-                        <td><span class="format-badge">GeoJSON</span></td>
+                        <td><span class="badge">GeoJSON</span></td>
                         <td>April 15, 2026</td>
                     </tr>
                     <tr>
                         <td><b>GBV Social Indicators</b></td>
-                        <td>LDHS / UNFPA</td>
-                        <td><span class="format-badge">Enriched JSON</span></td>
+                        <td>LDHS / DHS Program</td>
+                        <td><span class="badge">Enriched JSON</span></td>
                         <td>April 16, 2026</td>
                     </tr>
                     <tr>
-                        <td><b>County Administrative Boundaries</b></td>
-                        <td>geoBoundaries</td>
-                        <td><span class="format-badge">GeoJSON</span></td>
+                        <td><b>County Admin Boundaries</b></td>
+                        <td>geoBoundaries / HDX</td>
+                        <td><span class="badge">GeoJSON</span></td>
                         <td>April 16, 2026</td>
                     </tr>
                 </tbody>
@@ -272,8 +293,8 @@
     </div>
 
     <footer>
-        &copy; 2026 Global Flood Archive & Socio-Environmental Risk Study.<br>
-        Built with Leaflet.js, Chart.js, and PapaParse.
+        &copy; 2026 Global Flood Archive & Liberia Risk Registry.<br>
+        Developed for professional humanitarian analysis and environmental research.
     </footer>
 
 </body>
