@@ -113,7 +113,6 @@
             <p>Full technical documentation and live previews of the primary data sources.</p>
         </div>
 
-        <!-- Global Archive -->
         <div class="dataset-card">
             <div class="dataset-meta">
                 <h3>Global Active Flood Archive</h3>
@@ -121,22 +120,26 @@
                 <div><b>Format:</b> CSV / XLSX</div>
                 <div><b>Retrieved:</b> April 2026</div>
             </div>
-            <div class="preview-title">DATA PREVIEW (FIRST 5 ROWS)</div>
-            <div style="overflow-x: auto;">
-                <table class="table-preview">
-                    <thead><tr><th>ID</th><th>Country</th><th>long</th><th>lat</th><th>Year</th><th>Dead</th><th>MainCause</th><th>Severity</th></tr></thead>
-                    <tbody>
-                        <tr><td>1</td><td>ALGERIA</td><td>5.23026</td><td>35.8142</td><td>1985</td><td>26</td><td>Heavy Rain</td><td>1.0</td></tr>
-                        <tr><td>2</td><td>BRAZIL</td><td>-45.3489</td><td>-18.7111</td><td>1985</td><td>229</td><td>Heavy Rain</td><td>2.0</td></tr>
-                        <tr><td>3</td><td>PHILIPPINES</td><td>122.974</td><td>10.0207</td><td>1985</td><td>43</td><td>Heavy Rain</td><td>1.0</td></tr>
-                        <tr><td>4</td><td>INDONESIA</td><td>124.606</td><td>1.01489</td><td>1985</td><td>21</td><td>Heavy Rain</td><td>1.0</td></tr>
-                        <tr><td>5</td><td>MOZAMBIQUE</td><td>32.3491</td><td>-25.8693</td><td>1985</td><td>19</td><td>Heavy Rain</td><td>2.0</td></tr>
-                    </tbody>
-                </table>
+            <div class="preview-title">DATA PREVIEW</div>
+            <div class="accordion">
+                <button class="acc-btn" aria-expanded="false">Show preview — First 5 rows</button>
+                <div class="acc-panel">
+                    <div style="overflow-x:auto;">
+                        <table class="table-preview">
+                            <thead><tr><th>ID</th><th>Country</th><th>long</th><th>lat</th><th>Year</th><th>Dead</th><th>MainCause</th><th>Severity</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td>ALGERIA</td><td>5.23026</td><td>35.8142</td><td>1985</td><td>26</td><td>Heavy Rain</td><td>1.0</td></tr>
+                                <tr><td>2</td><td>BRAZIL</td><td>-45.3489</td><td>-18.7111</td><td>1985</td><td>229</td><td>Heavy Rain</td><td>2.0</td></tr>
+                                <tr><td>3</td><td>PHILIPPINES</td><td>122.974</td><td>10.0207</td><td>1985</td><td>43</td><td>Heavy Rain</td><td>1.0</td></tr>
+                                <tr><td>4</td><td>INDONESIA</td><td>124.606</td><td>1.01489</td><td>1985</td><td>21</td><td>Heavy Rain</td><td>1.0</td></tr>
+                                <tr><td>5</td><td>MOZAMBIQUE</td><td>32.3491</td><td>-25.8693</td><td>1985</td><td>19</td><td>Heavy Rain</td><td>2.0</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Liberia Floods -->
         <div class="dataset-card">
             <div class="dataset-meta">
                 <h3>Liberia Flood Events</h3>
@@ -144,18 +147,23 @@
                 <div><b>Format:</b> GeoJSON / CSV</div>
                 <div><b>Retrieved:</b> April 2026</div>
             </div>
-            <div class="preview-title">DATA PREVIEW (FIRST 5 ROWS)</div>
-            <div style="overflow-x: auto;">
-                <table class="table-preview">
-                    <thead><tr><th>ID</th><th>Country</th><th>long</th><th>lat</th><th>Began</th><th>Dead</th><th>Displaced</th><th>MainCause</th></tr></thead>
-                    <tbody>
-                        <tr><td>1089</td><td>Liberia</td><td>-10.3271</td><td>6.61336</td><td>7/15/96</td><td>0</td><td>0</td><td>Brief torrential rain</td></tr>
-                        <tr><td>1449</td><td>Liberia</td><td>-10.9621</td><td>7.05753</td><td>9/17/98</td><td>8</td><td>5000</td><td>Heavy rain</td></tr>
-                        <tr><td>3177</td><td>Liberia</td><td>-10.5823</td><td>6.50598</td><td>8/26/07</td><td>0</td><td>17000</td><td>Heavy rain</td></tr>
-                        <tr><td>3334</td><td>Liberia</td><td>-10.2126</td><td>6.2298</td><td>7/11/08</td><td>0</td><td>0</td><td>Heavy Rain</td></tr>
-                        <tr><td>3669</td><td>Liberia</td><td>-7.15018</td><td>6.01301</td><td>6/25/10</td><td>12</td><td>0</td><td>Torrential Rain</td></tr>
-                    </tbody>
-                </table>
+            <div class="preview-title">DATA PREVIEW</div>
+            <div class="accordion">
+                <button class="acc-btn" aria-expanded="false">Show preview — First 5 rows</button>
+                <div class="acc-panel">
+                    <div style="overflow-x:auto;">
+                        <table class="table-preview">
+                            <thead><tr><th>ID</th><th>Country</th><th>long</th><th>lat</th><th>Began</th><th>Dead</th><th>Displaced</th><th>MainCause</th></tr></thead>
+                            <tbody>
+                                <tr><td>1089</td><td>Liberia</td><td>-10.3271</td><td>6.61336</td><td>7/15/96</td><td>0</td><td>0</td><td>Brief torrential rain</td></tr>
+                                <tr><td>1449</td><td>Liberia</td><td>-10.9621</td><td>7.05753</td><td>9/17/98</td><td>8</td><td>5000</td><td>Heavy rain</td></tr>
+                                <tr><td>3177</td><td>Liberia</td><td>-10.5823</td><td>6.50598</td><td>8/26/07</td><td>0</td><td>17000</td><td>Heavy rain</td></tr>
+                                <tr><td>3334</td><td>Liberia</td><td>-10.2126</td><td>6.2298</td><td>7/11/08</td><td>0</td><td>0</td><td>Heavy Rain</td></tr>
+                                <tr><td>3669</td><td>Liberia</td><td>-7.15018</td><td>6.01301</td><td>6/25/10</td><td>12</td><td>0</td><td>Torrential Rain</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -167,14 +175,18 @@
                 <div><b>Format:</b> GeoJSON</div>
                 <div><b>Retrieved:</b> April 2026</div>
             </div>
-            <div class="preview-title">DATA PREVIEW (JSON SNIPPET)</div>
-            <pre>
+            <div class="preview-title">DATA PREVIEW</div>
+            <div class="accordion">
+                <button class="acc-btn" aria-expanded="false">Show preview — JSON snippet</button>
+                <div class="acc-panel">
+                    <pre>
 {
   "type": "FeatureCollection",
   "features": [
     {"type":"Feature","geometry":{"type":"Point","coordinates":[-9.538518932529968,7.652748131636656]},"properties":{"name":"Zolowo Clinic","healthcare":"clinic","amenity":"clinic","operator":"Government"}},
     {"type":"Feature","geometry":{"type":"Point","coordinates":[-10.706339913577494,6.393092672487199]},"properties":{"name":"International Poly Clinic","healthcare":"clinic","amenity":"clinic","addr_city":"Monrovia"}},
-    {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-9.117495433210138,6.647045227905465],[-9.116408216549502,6.647176572328192],[-9.116335880725131,6.646653960665304]]]},"properties":{"name":"Zekepa Clinic","healthcare":"clinic","amenity":"hospital"}},
+    {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-9.117495433210138,6.647045227905465],[-9.116408216549502,6.647176572328192],[-9.116335880725131,6.646653960665304]]]}},
+"properties":{"name":"Zekepa Clinic","healthcare":"clinic","amenity":"hospital"}},
     {"type":"Feature","geometry":{"type":"Point","coordinates":[-10.066546478315104,8.389644657878733]},"properties":{"name":"Fassavolu Clinic","healthcare":"clinic","amenity":"clinic"}},
     {"type":"Feature","geometry":{"type":"Point","coordinates":[-10.018575840624692,6.597045582913836]},"properties":{"name":"Worhn Clinic","healthcare":"clinic","amenity":"clinic"}}
   ]
@@ -190,5 +202,20 @@
         Developed for professional humanitarian analysis and socio-environmental research.
     </footer>
 
+
+<script>
+  // simple accordion behaviour
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.acc-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        var panel = this.nextElementSibling;
+        if(!expanded){ panel.style.maxHeight = panel.scrollHeight + 'px'; panel.style.padding = '1rem'; }
+        else { panel.style.maxHeight = null; panel.style.padding = '0 1rem'; }
+      });
+    });
+  });
+</script>
 </body>
 </html>
