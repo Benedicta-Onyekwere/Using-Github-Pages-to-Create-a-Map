@@ -10,199 +10,57 @@
             --bg: #030712;
             --card: #111827;
             --border: rgba(255, 255, 255, 0.1);
-            --accent-pro: #818cf8; /* Indigo */
-            --accent-health: #10b981; /* Emerald */
-            --accent-social: #f43f5e; /* Rose */
+            --accent-pro: #818cf8;
+            --accent-health: #10b981;
+            --accent-social: #f43f5e;
             --text-primary: #f9fafb;
             --text-secondary: #9ca3af;
+            --preview-bg: #0d1117;
         }
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            margin: 0; 
-            background: var(--bg); 
-            color: var(--text-primary); 
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
         
-        /* Navigation */
-        nav { 
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(15px);
-            padding: 1.25rem 0; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            border-bottom: 1px solid var(--border);
-        }
-        nav .container { 
-            max-width: 1100px; 
-            margin: auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 0 2rem;
-        }
-        .nav-links a { 
-            color: var(--text-primary); 
-            text-decoration: none; 
-            margin-left: 2rem; 
-            font-weight: 600; 
-            font-size: 0.85rem;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: var(--accent-pro); }
+        nav { background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(15px); padding: 1.25rem 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        nav a { color: var(--text-primary); text-decoration: none; margin-left: 2rem; font-weight: 600; font-size: 0.85rem; transition: color 0.3s; }
+        nav a:hover { color: var(--accent-pro); }
         .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.5px; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Hero - Vibrant Aesthetic */
-        .hero { 
-            padding: 140px 2rem; 
-            text-align: center;
-            position: relative;
-            background: radial-gradient(circle at 20% 30%, rgba(129, 140, 248, 0.1) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(244, 63, 94, 0.05) 0%, transparent 40%);
-        }
-        .hero .branding {
-            background: rgba(129, 140, 248, 0.1);
-            color: var(--accent-pro);
-            padding: 6px 16px;
-            border-radius: 99px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            border: 1px solid rgba(129, 140, 248, 0.2);
-        }
-        .hero h1 { 
-            font-size: 4rem; 
-            font-weight: 800;
-            margin-bottom: 1rem; 
-            letter-spacing: -0.06em;
-            line-height: 1;
-            background: linear-gradient(to bottom, #fff 40%, #9ca3af);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero .tagline {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            display: block;
-            color: #d1d5db;
-        }
-        .hero p { 
-            max-width: 750px; 
-            margin: auto; 
-            font-size: 1.2rem; 
-            color: var(--text-secondary);
-        }
+        .hero { padding: 100px 2rem; text-align: center; position: relative; background: radial-gradient(circle at 20% 30%, rgba(129, 140, 248, 0.1) 0%, transparent 40%); }
+        .hero .branding { background: rgba(129, 140, 248, 0.1); color: var(--accent-pro); padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; display: inline-block; border: 1px solid rgba(129, 140, 248, 0.2); }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.06em; line-height: 1.1; background: linear-gradient(to bottom, #fff 40%, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero .tagline { font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; display: block; color: #d1d5db; }
+        .hero p { max-width: 750px; margin: auto; font-size: 1.15rem; color: var(--text-secondary); }
 
-        .container { max-width: 1100px; margin: auto; padding: 6rem 2rem; }
-        
+        .container { max-width: 1100px; margin: auto; padding: 4rem 2rem; }
         .section-header { margin-bottom: 4rem; text-align: center; }
         .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .section-header p { color: var(--text-secondary); }
 
-        /* Color-Coded Module Cards */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 2.5rem; 
-            margin-bottom: 8rem;
-        }
-        .card { 
-            background: var(--card); 
-            border-radius: 24px; 
-            padding: 3rem; 
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-        .card:hover { 
-            transform: translateY(-12px);
-            background: #1f2937;
-        }
-        
-        /* Card Glowing Accents */
-        .card-pro:hover { border-color: var(--accent-pro); box-shadow: 0 20px 50px -20px rgba(129, 140, 248, 0.3); }
-        .card-health:hover { border-color: var(--accent-health); box-shadow: 0 20px 50px -20px rgba(16, 185, 129, 0.3); }
-        .card-social:hover { border-color: var(--accent-social); box-shadow: 0 20px 50px -20px rgba(244, 63, 94, 0.3); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-bottom: 8rem; }
+        .tool-card { background: var(--card); border-radius: 24px; padding: 3rem; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; }
+        .tool-card:hover { transform: translateY(-8px); background: #1f2937; border-color: var(--accent-pro); }
+        .tool-card h3 { font-size: 1.5rem; margin-bottom: 1rem; font-weight: 800; }
+        .tool-card p { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 2.5rem; }
 
-        .card h3 { font-size: 1.6rem; margin: 0 0 1rem; font-weight: 800; }
-        .card p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 2.5rem; }
-
-        /* Colorful Buttons */
-        .btn {
-            display: inline-block;
-            color: #fff;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
+        .btn { display: inline-block; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-align: center; transition: all 0.3s; cursor: pointer; }
         .btn-pro { background: var(--accent-pro); box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4); }
         .btn-health { background: var(--accent-health); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
         .btn-social { background: var(--accent-social); box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4); }
-        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        /* Metadata Registry Table - Frosted Glass */
-        .metadata-wrapper {
-            background: rgba(31, 41, 55, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            padding: 3rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            overflow-x: auto;
-        }
-        .metadata-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .metadata-table th {
-            text-align: left;
-            padding: 1.25rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            border-bottom: 1px solid var(--border);
-        }
-        .metadata-table td {
-            padding: 1.5rem 1.25rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.95rem;
-        }
-        .metadata-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+        /* Datasets & Metadata Section */
+        .dataset-card { background: #0d1117; border-radius: 20px; border: 1px solid var(--border); padding: 2.5rem; margin-bottom: 3rem; }
+        .dataset-meta { margin-bottom: 1.5rem; }
+        .dataset-meta h3 { color: #fff; font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .dataset-meta div { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+        .dataset-meta b { color: var(--accent-pro); width: 140px; display: inline-block; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
         
-        .badge {
-            font-size: 0.7rem;
-            font-weight: 800;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 99px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .preview-title { font-size: 0.75rem; font-weight: 800; color: #6e7681; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; margin-top: 2rem; border-bottom: 1px solid #30363d; padding-bottom: 5px; }
+        pre { background: #010409; padding: 1.5rem; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; overflow-x: auto; color: #c9d1d9; border: 1px solid #30363d; }
+        
+        .table-preview { width: 100%; border-collapse: collapse; font-family: monospace; font-size: 0.75rem; margin-top: 10px; }
+        .table-preview th { text-align: left; padding: 8px; color: #8b949e; border-bottom: 1px solid #30363d; }
+        .table-preview td { padding: 8px; border-bottom: 1px solid #21262d; }
 
-        footer { 
-            padding: 8rem 2rem; 
-            text-align: center; 
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            background: #020617;
-            border-top: 1px solid var(--border);
-        }
+        footer { padding: 8rem 2rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; background: #020617; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -223,84 +81,101 @@
         <span class="branding">Global to Local Analysis</span>
         <h1>Environmental & Social Impact Portal</h1>
         <span class="tagline">From Global Patterns to Community Realities.</span>
-        <p>
-            A specialized framework analyzing historical flood archives since 1985 to visualize 
-            the intersection of environmental hazards and social infrastructure in Liberia.
-        </p>
+        <p>A specialized framework analyzing historical flood archives since 1985 to visualize the intersection of environmental hazards and social infrastructure in Liberia.</p>
     </div>
 
     <div class="container">
+        <!-- Analysis Tools -->
         <div class="grid">
-            <!-- Card 1 -->
-            <div class="tool-card card card-pro">
-                <div>
-                    <h3 style="color: var(--accent-pro)">Pro Visualizer</h3>
-                    <p>High-end data engine with live global stats, flight-animated transitions, and real-time filtering.</p>
-                </div>
+            <div class="tool-card card-pro">
+                <h3 style="color: var(--accent-pro)">Pro Visualizer</h3>
+                <p>Advanced global flood archive engine with live stats, flight-animated transitions, and multi-country filtering.</p>
                 <a href="pro-visualizer.html" class="btn btn-pro">Launch Pro Module</a>
             </div>
-
-            <!-- Card 2 -->
-            <div class="tool-card card card-health">
-                <div>
-                    <h3 style="color: var(--accent-health)">Health Risk Map</h3>
-                    <p>Spatial study calculating the critical overlap between healthcare networks and flood hazard zones across Liberia.</p>
-                </div>
+            <div class="tool-card card-health">
+                <h3 style="color: var(--accent-health)">Health Risk Map</h3>
+                <p>Calculated spatial assessment of healthcare infrastructure locations overlapping with historical hazard zones across Liberia.</p>
                 <a href="liberia.html" class="btn btn-health">Open Risk Map</a>
             </div>
-
-            <!-- Card 3 -->
-            <div class="tool-card card card-social">
-                <div>
-                    <h3 style="color: var(--accent-social)">Social Impact</h3>
-                    <p>Deep-dive research into GBV sub-national indicators and social resilience infrastructure in Grand Cape Mount.</p>
-                </div>
+            <div class="tool-card card-social">
+                <h3 style="color: var(--accent-social)">Social Impact</h3>
+                <p>Sub-national social indicators for Grand Cape Mount, focusing on GBV prevalence and local response systems.</p>
                 <a href="gbv_map.html" class="btn btn-social">View Social Data</a>
             </div>
         </div>
 
+        <!-- Datasets & Metadata Section -->
         <div class="section-header">
-            <h2>Technical Data Registry</h2>
-            <p>Comprehensive audit trail and metadata for all primary source materials.</p>
+            <h2>Datasets & Metadata</h2>
+            <p>Full technical documentation and live previews of the primary data sources.</p>
         </div>
 
-        <div class="metadata-wrapper">
-            <table class="metadata-table">
-                <thead>
-                    <tr>
-                        <th>Dataset</th>
-                        <th>Source Entity</th>
-                        <th>Format</th>
-                        <th>Date Retrieved</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><b>Global Flood Archive</b></td>
-                        <td>HDX / OCHA</td>
-                        <td><span class="badge">CSV / GeoJSON</span></td>
-                        <td>April 14, 2026</td>
-                    </tr>
-                    <tr>
-                        <td><b>Liberia Health Facilities</b></td>
-                        <td>OpenStreetMap</td>
-                        <td><span class="badge">GeoJSON</span></td>
-                        <td>April 15, 2026</td>
-                    </tr>
-                    <tr>
-                        <td><b>GBV Sub-national Stats</b></td>
-                        <td>LDHS / UNFPA</td>
-                        <td><span class="badge">Enriched JSON</span></td>
-                        <td>April 16, 2026</td>
-                    </tr>
-                    <tr>
-                        <td><b>Administrative Boundaries</b></td>
-                        <td>geoBoundaries / HDX</td>
-                        <td><span class="badge">GeoJSON</span></td>
-                        <td>April 16, 2026</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Global Archive -->
+        <div class="dataset-card">
+            <div class="dataset-meta">
+                <h3>Global Active Flood Archive</h3>
+                <div><b>Source:</b> Dartmouth Flood Observatory / OCHA</div>
+                <div><b>Format:</b> CSV / XLSX</div>
+                <div><b>Retrieved:</b> April 2026</div>
+            </div>
+            <div class="preview-title">DATA PREVIEW (FIRST 5 ROWS)</div>
+            <div style="overflow-x: auto;">
+                <table class="table-preview">
+                    <thead><tr><th>ID</th><th>Country</th><th>long</th><th>lat</th><th>Year</th><th>Dead</th><th>MainCause</th><th>Severity</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>ALGERIA</td><td>5.23026</td><td>35.8142</td><td>1985</td><td>26</td><td>Heavy Rain</td><td>1.0</td></tr>
+                        <tr><td>2</td><td>BRAZIL</td><td>-45.3489</td><td>-18.7111</td><td>1985</td><td>229</td><td>Heavy Rain</td><td>2.0</td></tr>
+                        <tr><td>3</td><td>PHILIPPINES</td><td>122.974</td><td>10.0207</td><td>1985</td><td>43</td><td>Heavy Rain</td><td>1.0</td></tr>
+                        <tr><td>4</td><td>INDONESIA</td><td>124.606</td><td>1.01489</td><td>1985</td><td>21</td><td>Heavy Rain</td><td>1.0</td></tr>
+                        <tr><td>5</td><td>MOZAMBIQUE</td><td>32.3491</td><td>-25.8693</td><td>1985</td><td>19</td><td>Heavy Rain</td><td>2.0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Liberia Floods -->
+        <div class="dataset-card">
+            <div class="dataset-meta">
+                <h3>Liberia Flood Events</h3>
+                <div><b>Source:</b> Filtered Archive Data</div>
+                <div><b>Format:</b> GeoJSON / CSV</div>
+                <div><b>Retrieved:</b> April 2026</div>
+            </div>
+            <div class="preview-title">DATA PREVIEW (FIRST 5 ROWS)</div>
+            <div style="overflow-x: auto;">
+                <table class="table-preview">
+                    <thead><tr><th>ID</th><th>Country</th><th>long</th><th>lat</th><th>Began</th><th>Dead</th><th>Displaced</th><th>MainCause</th></tr></thead>
+                    <tbody>
+                        <tr><td>1089</td><td>Liberia</td><td>-10.3271</td><td>6.61336</td><td>7/15/96</td><td>0</td><td>0</td><td>Brief torrential rain</td></tr>
+                        <tr><td>1449</td><td>Liberia</td><td>-10.9621</td><td>7.05753</td><td>9/17/98</td><td>8</td><td>5000</td><td>Heavy rain</td></tr>
+                        <tr><td>3177</td><td>Liberia</td><td>-10.5823</td><td>6.50598</td><td>8/26/07</td><td>0</td><td>17000</td><td>Heavy rain</td></tr>
+                        <tr><td>3334</td><td>Liberia</td><td>-10.2126</td><td>6.2298</td><td>7/11/08</td><td>0</td><td>0</td><td>Heavy Rain</td></tr>
+                        <tr><td>3669</td><td>Liberia</td><td>-10.7421</td><td>6.3211</td><td>8/15/10</td><td>12</td><td>0</td><td>Heavy Rain</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Health Sites -->
+        <div class="dataset-card">
+            <div class="dataset-meta">
+                <h3>Liberia Health Sites</h3>
+                <div><b>Source:</b> healthsites.io / OSM</div>
+                <div><b>Format:</b> GeoJSON</div>
+                <div><b>Retrieved:</b> April 2026</div>
+            </div>
+            <div class="preview-title">DATA PREVIEW (JSON SNIPPET)</div>
+            <pre>
+{
+  "type": "Feature",
+  "geometry": { "type": "Point", "coordinates": [-9.538, 7.652] },
+  "properties": {
+    "name": "Zolowo Clinic",
+    "healthcare": "clinic",
+    "amenity": "clinic",
+    "operator": "Government"
+  }
+}, ...</pre>
         </div>
     </div>
 
