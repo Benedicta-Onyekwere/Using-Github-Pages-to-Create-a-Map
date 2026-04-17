@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- CTA Update: 2026-04-17 (Reverse Narrative) -->
+    <!-- Narrative Update: 2026-04-17 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposal: A Scalable Roadmap for Climate Resilience</title>
+    <title>Global to Local | Environmental & Social Impact Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,17 +23,16 @@
         nav .container { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
         .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.5px; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         nav a { color: var(--text-primary); text-decoration: none; margin-left: 2rem; font-weight: 600; font-size: 0.85rem; transition: color 0.3s; }
-        nav a:hover { color: var(--accent-social); }
+        nav a:hover { color: var(--accent-pro); }
 
-        .hero { padding: 120px 2rem 80px; text-align: center; background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.08) 0%, transparent 50%); }
-        .hero .branding { background: rgba(244, 63, 94, 0.1); color: var(--accent-social); padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; display: inline-block; border: 1px solid rgba(244, 63, 94, 0.2); }
+        .hero { padding: 120px 2rem 80px; text-align: center; background: radial-gradient(circle at 50% 50%, rgba(129, 140, 248, 0.08) 0%, transparent 50%); }
+        .hero .branding { background: rgba(129, 140, 248, 0.1); color: var(--accent-pro); padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; display: inline-block; border: 1px solid rgba(129, 140, 248, 0.2); }
         .hero h1 { font-size: 3.5rem; font-weight: 800; margin: 0 0 1.5rem; letter-spacing: -0.05em; line-height: 1.1; background: linear-gradient(to bottom, #fff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero .tagline { font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; display: block; color: var(--accent-social); }
-        .hero p { max-width: 850px; margin: auto; font-size: 1.15rem; color: var(--text-secondary); }
+        .hero p { max-width: 700px; margin: auto; font-size: 1.15rem; color: var(--text-secondary); }
 
         .container { max-width: 1100px; margin: auto; padding: 2rem; }
         
-        /* Narrative Journey Layout (Reverse Order) */
+        /* Narrative Journey Layout */
         .journey-section { position: relative; padding: 4rem 0; }
         .journey-step { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 6rem; position: relative; }
         .journey-step:nth-child(even) { direction: rtl; }
@@ -43,6 +42,8 @@
         .step-number { font-size: 8rem; font-weight: 900; position: absolute; top: -2rem; left: -1rem; opacity: 0.05; color: #fff; line-height: 1; }
         .step-graphic { background: linear-gradient(135deg, var(--card), #1f2937); border-radius: 24px; aspect-ratio: 16/10; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; overflow: hidden; }
         
+        /* Specific Graphic Icons */
+        .step-graphic i { font-size: 4rem; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
         .g-pro { border-bottom: 4px solid var(--accent-pro); }
         .g-health { border-bottom: 4px solid var(--accent-health); }
         .g-social { border-bottom: 4px solid var(--accent-social); }
@@ -56,8 +57,8 @@
         .btn-social { background: var(--accent-social); }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        /* Connective line (Reverse Colors) */
-        .journey-line { position: absolute; left: 50%; top: 10%; bottom: 10%; width: 2px; background: linear-gradient(to bottom, var(--accent-social), var(--accent-health), var(--accent-pro)); opacity: 0.1; z-index: -1; display: none; }
+        /* Connective line */
+        .journey-line { position: absolute; left: 50%; top: 10%; bottom: 10%; width: 2px; background: linear-gradient(to bottom, var(--accent-pro), var(--accent-health), var(--accent-social)); opacity: 0.1; z-index: -1; display: none; }
         @media (min-width: 1024px) { .journey-line { display: block; } }
         @media (max-width: 900px) { .journey-step { grid-template-columns: 1fr; gap: 2rem; text-align: center; margin-bottom: 4rem; } .journey-step:nth-child(even) { direction: ltr; } }
 
@@ -89,9 +90,9 @@
         <div class="container">
             <div class="logo">FLOODARCHIVE+</div>
             <div class="nav-links">
-                <a href="gbv_map.html">The Need</a>
-                <a href="liberia.html">The Solution</a>
-                <a href="pro-visualizer.html">The Vision</a>
+                <a href="pro-visualizer.html">Discovery</a>
+                <a href="liberia.html">National Risk</a>
+                <a href="gbv_map.html">Community</a>
                 <a href="uploader.html">Data Lab</a>
             </div>
         </div>
@@ -99,131 +100,162 @@
 
     <main class="site-main">
         <div class="hero">
-            <span class="branding">A Call to Action</span>
+            <span class="branding">The Data Journey</span>
             <h1>Environmental & Social<br>Impact Portal</h1>
-            <span class="tagline">Closing the Protection Gap.</span>
-            <p>We are seeking to scale our proven Liberia pilot—which transforms broad climate archives into precise protection for at-risk health and social systems—to provide every vulnerable community with a data-driven roadmap for climate resilience.</p>
+            <span class="tagline">Transforming Global Data into Local Action.</span>
+            <p>While global climate data is often too broad to be useful, our framework identifies the specific health systems and social infrastructure in Liberia that require urgent funding and protection.</p>
         </div>
 
         <div class="container journey-section">
             <div class="journey-line"></div>
 
-            <!-- STEP 1: THE NEED -->
+            <!-- STEP 1 -->
             <div class="journey-step">
                 <div class="step-visual">
                     <div class="step-number">01</div>
-                    <div class="step-graphic g-social">
+                    <div class="step-graphic g-pro">
                         <div style="text-align:center">
-                            <div style="font-size:3rem; margin-bottom:10px">🤝</div>
-                            <div style="font-size:0.7rem; font-weight:800; letter-spacing:2px; color:var(--accent-social)">THE URGENT NEED</div>
+                            <div style="font-size:3rem; margin-bottom:10px">🌍</div>
+                            <div style="font-size:0.7rem; font-weight:800; letter-spacing:2px; color:var(--accent-pro)">GLOBAL DISCOVERY</div>
                         </div>
                     </div>
                 </div>
                 <div class="step-content">
-                    <h2 style="color:var(--accent-social)">Frontline Community Realities</h2>
-                    <p>Disaster hits social systems first. In Grand Cape Mount, our data reveals where safe homes and response centers are most vulnerable. This is the baseline for intervention.</p>
-                    <a href="gbv_map.html" class="btn btn-social">See Local Impact</a>
+                    <h2 style="color:var(--accent-pro)">Identify Global Trends</h2>
+                    <p>Analyze 40 years of historical flood archives to understand the increasing frequency and severity of climate events across 160+ countries.</p>
+                    <a href="pro-visualizer.html" class="btn btn-pro">Launch Pro Visualizer</a>
                 </div>
             </div>
 
-            <!-- STEP 2: THE SOLUTION -->
+            <!-- STEP 2 -->
             <div class="journey-step">
                 <div class="step-visual">
                     <div class="step-number">02</div>
                     <div class="step-graphic g-health">
                         <div style="text-align:center">
                             <div style="font-size:3rem; margin-bottom:10px">🏥</div>
-                            <div style="font-size:0.7rem; font-weight:800; letter-spacing:2px; color:var(--accent-health)">A PROVEN SOLUTION</div>
+                            <div style="font-size:0.7rem; font-weight:800; letter-spacing:2px; color:var(--accent-health)">NATIONAL INTERSECTION</div>
                         </div>
                     </div>
                 </div>
                 <div class="step-content">
-                    <h2 style="color:var(--accent-health)">Strategic Pilot in Liberia</h2>
-                    <p>We don't just guess—we've built the engine. Our pilot has identified 14 specific health clinics in the direct path of historical hazards. A fundable roadmap for protection.</p>
-                    <a href="liberia.html" class="btn btn-health">Open Proof of Concept</a>
+                    <h2 style="color:var(--accent-health)">Assess National Risk</h2>
+                    <p>Focusing on Liberia, we overlay hazard zones with health infrastructure to identify hospitals and clinics at immediate risk of environmental disruption.</p>
+                    <a href="liberia.html" class="btn btn-health">Open Risk Map</a>
                 </div>
             </div>
 
-            <!-- STEP 3: THE VISION -->
+            <!-- STEP 3 -->
             <div class="journey-step">
                 <div class="step-visual">
                     <div class="step-number">03</div>
-                    <div class="step-graphic g-pro">
+                    <div class="step-graphic g-social">
                         <div style="text-align:center">
-                            <div style="font-size:3rem; margin-bottom:10px">🌍</div>
-                            <div style="font-size:0.7rem; font-weight:800; letter-spacing:2px; color:var(--accent-pro)">GLOBAL SCALING</div>
+                            <div style="font-size:3rem; margin-bottom:10px">🤝</div>
+                            <div style="font-size:0.7rem; font-weight:800; letter-spacing:2px; color:var(--accent-social)">COMMUNITY REALITY</div>
                         </div>
                     </div>
                 </div>
                 <div class="step-content">
-                    <h2 style="color:var(--accent-pro)">Scaling for Resilience</h2>
-                    <p>Our Global engine integrates 40 years of archives to bring this same visibility to every region worldwide. Support us in scaling this visibility to protect those who need it most.</p>
-                    <a href="pro-visualizer.html" class="btn btn-pro">Launch Vision Engine</a>
+                    <h2 style="color:var(--accent-social)">Understand Social Impact</h2>
+                    <p>Zooming into Grand Cape Mount County to visualize social indicators, GBV prevalence, and the protective systems that support the most vulnerable during crises.</p>
+                    <a href="gbv_map.html" class="btn btn-social">View Social Data</a>
                 </div>
             </div>
         </div>
 
         <div class="container">
             <div class="section-header">
-                <h2>Technical Proof of Concept</h2>
-                <p>Transparent documentation and live data samples supporting this proposal.</p>
+                <h2>Technical Registry</h2>
+                <p>Documentation and live snippets for all integrated datasets.</p>
             </div>
 
-            <!-- Social Indicators -->
+            <!-- Global Archive -->
             <div class="dataset-card">
                 <div class="dataset-meta">
-                    <h3>Social Impact Indicators</h3>
-                    <div><b>Sector:</b> Gender-Based Violence & Community Safety</div>
-                    <div><b>Format:</b> GeoJSON (Administrative Boundary)</div>
-                    <div><b>Sample:</b> Grand Cape Mount spotlight data</div>
+                    <h3>Global Active Flood Archive</h3>
+                    <div><b>Source:</b> Dartmouth Flood Observatory</div>
+                    <div><b>Format:</b> CSV / GeoJSON</div>
+                    <div><b>Coverage:</b> 1985 — 2024</div>
                 </div>
-                <button class="acc-btn" style="border-color:var(--accent-social)">View Social Metadata</button>
+                <button class="acc-btn">View Data Sample</button>
                 <div class="acc-panel">
-                    <pre>{
-  "shapeName": "Grand Cape Mount",
-  "fgm_prevalence": "71%",
-  "spotlight_county": "Yes",
-  "one_stop_centers": ["Robertsport (St. Timothy Hospital)"]
-}</pre>
+                    <table class="table-preview">
+                        <thead><tr><th>ID</th><th>Country</th><th>Year</th><th>Dead</th><th>MainCause</th></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td>ALGERIA</td><td>1985</td><td>26</td><td>Heavy Rain</td></tr>
+                            <tr><td>2</td><td>BRAZIL</td><td>1985</td><td>229</td><td>Heavy Rain</td></tr>
+                            <tr><td>3</td><td>PHILIPPINES</td><td>1985</td><td>43</td><td>Heavy Rain</td></tr>
+                            <tr><td>4</td><td>INDONESIA</td><td>1985</td><td>21</td><td>Heavy Rain</td></tr>
+                            <tr><td>5</td><td>MOZAMBIQUE</td><td>1985</td><td>19</td><td>Heavy Rain</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Liberia Flood -->
+            <div class="dataset-card">
+                <div class="dataset-meta">
+                    <h3>Liberia Hazard Records</h3>
+                    <div><b>Source:</b> Filtered DFO Archive</div>
+                    <div><b>Format:</b> GeoJSON</div>
+                    <div><b>Points:</b> Historical Flood Centroids</div>
+                </div>
+                <button class="acc-btn">View Data Sample</button>
+                <div class="acc-panel">
+                    <table class="table-preview">
+                        <thead><tr><th>ID</th><th>Began</th><th>Dead</th><th>Displaced</th><th>MainCause</th></tr></thead>
+                        <tbody>
+                            <tr><td>1089</td><td>7/15/96</td><td>0</td><td>0</td><td>Brief torrential rain</td></tr>
+                            <tr><td>1449</td><td>9/17/98</td><td>8</td><td>5000</td><td>Heavy rain</td></tr>
+                            <tr><td>3177</td><td>8/26/07</td><td>0</td><td>17000</td><td>Heavy rain</td></tr>
+                            <tr><td>3334</td><td>7/11/08</td><td>0</td><td>0</td><td>Heavy Rain</td></tr>
+                            <tr><td>3669</td><td>6/25/10</td><td>12</td><td>0</td><td>Torrential Rain</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <!-- Health Sites -->
             <div class="dataset-card">
                 <div class="dataset-meta">
-                    <h3>National Health Infrastructure</h3>
-                    <div><b>Sector:</b> Public Health & Emergency Response</div>
-                    <div><b>Overlap:</b> Hazard zones vs. Facility locations</div>
+                    <h3>Liberia Health Infrastructure</h3>
+                    <div><b>Source:</b> healthsites.io / OSM</div>
+                    <div><b>Format:</b> GeoJSON / API</div>
                 </div>
-                <button class="acc-btn" style="border-color:var(--accent-health)">View Infrastructure Snippet</button>
+                <button class="acc-btn">View JSON Snippet</button>
                 <div class="acc-panel">
                     <pre>{
   "type": "FeatureCollection",
   "features": [
     {"type":"Feature","properties":{"name":"Zolowo Clinic","amenity":"clinic"}},
-    {"type":"Feature","properties":{"name":"International Poly Clinic","amenity":"clinic"}}
+    {"type":"Feature","properties":{"name":"International Poly Clinic","amenity":"clinic"}},
+    {"type":"Feature","properties":{"name":"Zekepa Clinic","amenity":"hospital"}},
+    {"type":"Feature","properties":{"name":"Fassavolu Clinic","amenity":"clinic"}},
+    {"type":"Feature","properties":{"name":"Worhn Clinic","amenity":"clinic"}}
   ]
 }</pre>
                 </div>
             </div>
 
-            <!-- Global Archive -->
+            <!-- Social Indicators -->
             <div class="dataset-card">
                 <div class="dataset-meta">
-                    <h3>Global Hazard Engine Data</h3>
-                    <div><b>Source:</b> DFO Archive (40 Year Record)</div>
-                    <div><b>Format:</b> Optimized CSV Preview</div>
+                    <h3>Social Impact Indicators</h3>
+                    <div><b>Source:</b> Grand Cape Mount Social Survey</div>
+                    <div><b>Format:</b> GeoJSON (Administrative)</div>
+                    <div><b>Key Stats:</b> FGM Prevalence, Spotlight Status</div>
                 </div>
-                <button class="acc-btn" style="border-color:var(--accent-pro)">View Archive Sample</button>
+                <button class="acc-btn" style="border-color:var(--accent-social)">View Metadata Sample</button>
                 <div class="acc-panel">
-                    <table class="table-preview">
-                        <thead><tr><th>ID</th><th>Country</th><th>Year</th><th>MainCause</th></tr></thead>
-                        <tbody>
-                            <tr><td>1</td><td>ALGERIA</td><td>1985</td><td>Heavy Rain</td></tr>
-                            <tr><td>2</td><td>BRAZIL</td><td>1985</td><td>Heavy Rain</td></tr>
-                            <tr><td>3</td><td>PHILIPPINES</td><td>1985</td><td>Heavy Rain</td></tr>
-                        </tbody>
-                    </table>
+                    <pre>{
+  "shapeName": "Grand Cape Mount",
+  "fgm_prevalence": "71%",
+  "spotlight_county": "Yes",
+  "women_legislators": "3/4",
+  "one_stop_centers": ["Robertsport (St. Timothy Hospital)"],
+  "safe_homes": ["Robertsport Safe Home"]
+}</pre>
                 </div>
             </div>
         </div>
@@ -231,7 +263,7 @@
 
     <footer>
         © 2026 Global Flood Archive & Liberia Risk Registry.<br>
-        A multi-scalar framework seeking funding for global climate resilience scaling.
+        A multi-scalar framework for environmental and social research.
     </footer>
 
     <script>
