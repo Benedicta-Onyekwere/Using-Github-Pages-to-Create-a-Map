@@ -1,165 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Liberia Health Infrastructure & Flood Risk</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Impact: GBV Indicators - Grand Cape Mount</title>
     
-    <!-- Leaflet & Clustering CSS -->
+    <!-- Leaflet & Plus Jakarta Sans -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f9; }
-        #map { height: 100vh; width: 100%; }
-        
-        /* Professional Legend Styling */
-        .legend {
-            padding: 12px;
-            background: white;
-            background: rgba(255,255,255,0.95);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            border-radius: 8px;
-            line-height: 1.6;
-            color: #333;
-            max-width: 200px;
+        :root {
+            --bg: #030712;
+            --sidebar: #111827;
+            --card: #1f2937;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #f43f5e; /* Social Impact Rose */
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
         }
-        .legend h4 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
-        .legend i { width: 14px; height: 14px; float: left; margin-right: 10px; margin-top: 4px; opacity: 0.9; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2); }
-        .legend .at-risk { border: 2px solid #fff; box-shadow: 0 0 0 2px #e74c3c; background: #e74c3c; }
-        
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text-primary);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Top Bar */
+        header {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 800; font-size: 1rem; color: var(--accent); letter-spacing: 1px; }
+        .home-btn {
+            background: var(--card);
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .home-btn:hover { border-color: var(--accent); }
+
+        main { flex: 1; display: flex; position: relative; }
+
+        /* Sidebar for Stats */
+        .sidebar {
+            width: 350px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            padding: 2rem;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .sidebar h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+        .sidebar p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 2rem; }
+
+        .stat-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); font-weight: 700; margin-bottom: 4px; display: block; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; color: #fff; }
+        .stat-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: 0.7rem; font-weight: 800; background: rgba(244, 63, 94, 0.1); color: var(--accent); border: 1px solid rgba(244, 63, 94, 0.2); margin-top: 8px; }
+
+        #map { flex: 1; z-index: 1; background: #030712; }
+
         /* Popup Styling */
-        .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 3px 14px rgba(0,0,0,0.4); }
-        .at-risk-popup b { color: #e74c3c; font-size: 14px; }
+        .leaflet-popup-content-wrapper {
+            background: var(--sidebar);
+            color: var(--text-primary);
+            border-radius: 12px;
+            padding: 5px;
+            border: 1px solid var(--border);
+        }
+        .leaflet-popup-tip { background: var(--sidebar); }
+        .popup-title { font-size: 1rem; font-weight: 800; color: var(--accent); margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .popup-row { font-size: 0.85rem; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .popup-row b { color: var(--text-secondary); }
+
+        /* Custom Zoom Control */
+        .leaflet-bar { border: 1px solid var(--border) !important; border-radius: 8px !important; overflow: hidden; }
+        .leaflet-bar a { background: var(--card) !important; color: white !important; border: none !important; }
+        .leaflet-bar a:hover { background: var(--accent) !important; }
     </style>
 </head>
 <body>
-    <a href="index.html" style="position: absolute; top: 15px; left: 15px; z-index: 1000; background: #161b22; padding: 10px 20px; border-radius: 8px; border: 1px solid #30363d; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-decoration: none; color: #58a6ff; font-weight: 700; font-size: 13px; transition: all 0.2s;">← Return to Hub</a>
-    <div id="map"></div>
 
-    <!-- Leaflet & Clustering JS -->
+    <header>
+        <div class="logo">SOCIAL IMPACT MODULE</div>
+        <a href="index.html" class="home-btn">← Return to Hub</a>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <h1>Grand Cape Mount</h1>
+            <p>Analyzing sub-national social indicators and protective systems in Liberia's Spotlight County.</p>
+
+            <div class="stat-card">
+                <span class="stat-label">FGM Prevalence</span>
+                <div class="stat-value">71%</div>
+                <div class="stat-badge">High Impact Area</div>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-label">Response Status</span>
+                <div class="stat-value">Spotlight</div>
+                <div class="stat-badge" style="background:rgba(16, 185, 129, 0.1); color:#10b981; border-color:rgba(16, 185, 129, 0.2)">Active Program</div>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-label">Protective Infrastructure</span>
+                <div class="stat-value" id="site-count">...</div>
+                <p style="font-size: 0.75rem; margin: 8px 0 0; color: var(--text-secondary)">One-Stop Centers & Safe Homes mapped.</p>
+            </div>
+        </aside>
+
+        <div id="map"></div>
+    </main>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    
     <script>
-        // Initialize Map with a clean "CartoDB Positron" tile set
-        var map = L.map('map').setView([6.489, -10.797], 7);
-        
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap &copy; CARTO',
-            subdomains: 'abcd',
-            maxZoom: 20
+        const map = L.map('map', { zoomControl: false }).setView([7.05, -11.0], 9);
+
+        // Dark Mode Tiles
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO'
         }).addTo(map);
 
-        // Define Color Palettes
-        var colors = {
-            atRisk: '#e74c3c', // Vibrant Red
-            healthSite: '#5d6d7e', // Muted Blue-Grey
-            floodHigh: '#154360', // Deep Blue
-            floodMed: '#2980b9', // Medium Blue
-            floodLow: '#aed6f1'  // Light Blue
-        };
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-        // 1. Load AT-RISK Health Facilities (Highlighted Red Markers)
-        var atRiskLayer = L.layerGroup().addTo(map);
-        fetch('at_risk_health_facilities.geojson')
+        fetch('gbv_grand_cape_mount.geojson')
             .then(res => res.json())
             .then(data => {
-                L.geoJSON(data, {
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup("<div class='at-risk-popup'><b>⚠️ AT RISK: " + (feature.properties.name || "Unnamed Facility") + "</b><br>" +
-                                         "<b>Type:</b> " + feature.properties.amenity + "<br>" +
-                                         "<b>Operator:</b> " + (feature.properties.operator || "Unknown") + "</div>");
+                const geoJsonLayer = L.geoJSON(data, {
+                    style: {
+                        color: '#f43f5e',
+                        weight: 3,
+                        fillColor: '#f43f5e',
+                        fillOpacity: 0.1,
+                        dashArray: '5, 10'
                     },
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, {
-                            radius: 10,
-                            fillColor: colors.atRisk,
-                            color: "#fff",
-                            weight: 2,
-                            opacity: 1,
-                            fillOpacity: 0.9
+                    onEachFeature: function(feature, layer) {
+                        const p = feature.properties;
+                        
+                        // Update site count in sidebar
+                        const totalSites = (p.one_stop_centers?.length || 0) + (p.safe_homes?.length || 0);
+                        document.getElementById('site-count').innerText = totalSites + " Sites";
+
+                        let popupHtml = `
+                            <div class="popup-title">${p.shapeName} County</div>
+                            <div class="popup-row"><b>FGM Prevalence:</b> <span>${p.fgm_prevalence}</span></div>
+                            <div class="popup-row"><b>Spotlight County:</b> <span>${p.spotlight_county}</span></div>
+                            <div class="popup-row"><b>Women Legislators:</b> <span>${p.women_legislators}</span></div>
+                            <div style="margin-top:10px; font-size:0.75rem; border-top:1px solid var(--border); padding-top:10px">
+                                <b style="color:var(--accent)">RESPONSE CENTERS:</b><br>
+                                ${p.one_stop_centers?.join('<br>') || 'None'}
+                            </div>
+                        `;
+                        layer.bindPopup(popupHtml);
+
+                        // Highlight on hover
+                        layer.on('mouseover', function() {
+                            this.setStyle({ fillOpacity: 0.2, weight: 4 });
+                        });
+                        layer.on('mouseout', function() {
+                            this.setStyle({ fillOpacity: 0.1, weight: 3 });
                         });
                     }
-                }).addTo(atRiskLayer);
+                }).addTo(map);
+
+                // Auto-zoom to fit the county
+                map.fitBounds(geoJsonLayer.getBounds(), { padding: [50, 50] });
+            })
+            .catch(err => {
+                console.error("Error loading GBV data:", err);
             });
-
-        // 2. Load General Health Facilities (Using Clustering to keep it clean)
-        var healthCluster = L.markerClusterGroup({
-            maxClusterRadius: 50,
-            showCoverageOnHover: false
-        });
-        
-        fetch('liberia_health_facilities.geojson')
-            .then(res => res.json())
-            .then(data => {
-                var geoJsonLayer = L.geoJSON(data, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, {
-                            radius: 4,
-                            fillColor: colors.healthSite,
-                            color: "#2c3e50",
-                            weight: 1,
-                            fillOpacity: 0.6
-                        });
-                    }
-                });
-                healthCluster.addLayer(geoJsonLayer);
-                map.addLayer(healthCluster);
-            });
-
-        // 3. Load Flood Events (Blue scale for water)
-        function getFloodColor(s) {
-            return s == '2'   ? colors.floodHigh : 
-                   s == '1.5' ? colors.floodMed : 
-                                colors.floodLow;
-        }
-
-        var floodLayer = L.layerGroup().addTo(map);
-        fetch('floods.geojson')
-            .then(res => res.json())
-            .then(data => {
-                L.geoJSON(data, {
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup("<b>Historical Flood</b><br>Severity: " + (feature.properties.severity || "1"));
-                    },
-                    pointToLayer: function (feature, latlng) {
-                        var s = feature.properties.severity;
-                        return L.circleMarker(latlng, {
-                            radius: s == '2' ? 12 : s == '1.5' ? 8 : 5,
-                            fillColor: getFloodColor(s),
-                            color: "#fff",
-                            weight: 1,
-                            fillOpacity: 0.7
-                        });
-                    }
-                }).addTo(floodLayer);
-            });
-
-        // Add Layer Control
-        var overlayMaps = {
-            "<span style='color: #e74c3c; font-weight: bold;'>⚠️ At-Risk Sites</span>": atRiskLayer,
-            "Health Facilities": healthCluster,
-            "Flood History": floodLayer
-        };
-        L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
-
-        // Legend
-        var legend = L.control({position: 'bottomright'});
-        legend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'legend');
-            div.innerHTML += '<h4>Map Key</h4>';
-            div.innerHTML += '<i style="background:' + colors.atRisk + '; border: 2px solid #fff; outline: 2px solid #e74c3c;"></i> <b>At-Risk Site</b><br>';
-            div.innerHTML += '<i style="background:' + colors.healthSite + '"></i> Health Facility<br>';
-            div.innerHTML += '<br><h4>Flood Severity</h4>';
-            div.innerHTML += '<i style="background:' + colors.floodHigh + '"></i> Major Event<br>';
-            div.innerHTML += '<i style="background:' + colors.floodMed + '"></i> Moderate Event<br>';
-            div.innerHTML += '<i style="background:' + colors.floodLow + '"></i> Minor Event<br>';
-            return div;
-        };
-        legend.addTo(map);
-
     </script>
 </body>
 </html>
